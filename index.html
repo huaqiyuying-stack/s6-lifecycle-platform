@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目全生命周期历史档案与可视化平台</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f9fafb; color: #111827; }
+        .header { background: #fff; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 40; }
+        .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #3b82f6, #9333ea); display: flex; align-items: center; justify-content: center; color: #fff; }
+        .logo-text { font-size: 18px; font-weight: 700; }
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+        .search-box { display: flex; align-items: center; background: #f3f4f6; border-radius: 8px; padding: 8px 12px; width: 256px; }
+        .search-box input { border: none; background: transparent; margin-left: 8px; font-size: 14px; outline: none; width: 100%; }
+        .btn-ai { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #2563eb; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; }
+        .btn-ai:hover { background: #1d4ed8; }
+        .main { max-width: 1280px; margin: 0 auto; padding: 24px; display: flex; gap: 24px; }
+        .sidebar { width: 220px; flex-shrink: 0; }
+        .sidebar nav { display: flex; flex-direction: column; gap: 4px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 14px; color: #4b5563; border: none; background: transparent; width: 100%; text-align: left; }
+        .nav-item:hover { background: #f3f4f6; }
+        .nav-item.active { background: #eff6ff; color: #1d4ed8; font-weight: 500; }
+        .nav-icon { width: 20px; height: 20px; }
+        .content { flex: 1; min-width: 0; }
+        .card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 24px; }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 20px; }
+        .stat-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        .stat-icon.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
+        .stat-icon.green { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; }
+        .stat-icon.orange { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+        .stat-value { font-size: 24px; font-weight: 700; }
+        .stat-label { font-size: 14px; color: #6b7280; margin-top: 4px; }
+        .stat-sub { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .info-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+        .info-item label { font-size: 12px; color: #6b7280; display: block; }
+        .info-item span { font-size: 14px; font-weight: 500; margin-top: 4px; display: block; }
+        .progress-bar { width: 100%; height: 10px; background: #e5e7eb; border-radius: 5px; margin-top: 8px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 5px; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-yellow { background: #fef9c3; color: #854d0e; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-gray { background: #f3f4f6; color: #4b5563; }
+        .badge-red { background: #fee2e2; color: #dc2626; }
+        .badge-purple { background: #f3e8ff; color: #7e22ce; }
+        .badge-pink { background: #fce7f3; color: #be185d; }
+        .badge-indigo { background: #e0e7ff; color: #3730a3; }
+        .badge-cyan { background: #cffafe; color: #0e7490; }
+        .badge-orange { background: #ffedd5; color: #c2410c; }
+        .badge-teal { background: #ccfbf1; color: #0f766e; }
+        .badge-lime { background: #ecfccb; color: #3f6212; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-rose { background: #ffe4e6; color: #be123c; }
+        .badge-sky { background: #e0f2fe; color: #075985; }
+        .badge-violet { background: #ede9fe; color: #5b21b6; }
+        .milestone-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f9fafb; border-radius: 8px; margin-bottom: 12px; }
+        .milestone-item:hover { background: #f3f4f6; }
+        .timeline { position: relative; padding-left: 48px; }
+        .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-dot { position: absolute; left: -36px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid; }
+        .timeline-dot.completed { background: #f0fdf4; border-color: #bbf7d0; color: #22c55e; }
+        .timeline-dot.in-progress { background: #eff6ff; border-color: #bfdbfe; color: #3b82f6; }
+        .timeline-dot.planned { background: #f9fafb; border-color: #e5e7eb; color: #9ca3af; }
+        .timeline-card { background: #f9fafb; border-radius: 8px; padding: 16px; }
+        .timeline-card:hover { background: #f3f4f6; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px 8px; font-size: 13px; color: #4b5563; font-weight: 500; border-bottom: 1px solid #e5e7eb; }
+        td { padding: 12px 8px; font-size: 13px; border-bottom: 1px solid #f3f4f6; }
+        tr:hover td { background: #f9fafb; }
+        .tool-card { background: #f9fafb; border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 12px; }
+        .tool-card:hover { background: #f3f4f6; }
+        .tool-icon { font-size: 28px; }
+        .flow-steps { display: flex; align-items: center; justify-content: space-between; overflow-x: auto; padding-bottom: 8px; }
+        .flow-step { display: flex; flex-direction: column; align-items: center; min-width: 100px; }
+        .flow-step-num { width: 48px; height: 48px; border-radius: 50%; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .flow-step-label { font-size: 12px; color: #4b5563; margin-top: 8px; text-align: center; }
+        .flow-arrow { color: #d1d5db; font-size: 18px; }
+        .chart-container { width: 100%; height: 280px; position: relative; }
+        .pie-chart-container { display: flex; align-items: center; gap: 24px; }
+        .pie-legend { display: flex; flex-direction: column; gap: 8px; }
+        .pie-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .pie-legend-color { width: 12px; height: 12px; border-radius: 2px; }
+        .chat-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 40; display: none; }
+        .chat-overlay.show { display: block; }
+        .chat-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 420px; background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 50; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s ease; }
+        .chat-panel.show { transform: translateX(0); }
+        .chat-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #e5e7eb; }
+        .chat-header-left { display: flex; align-items: center; gap: 12px; }
+        .chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #9333ea); display: flex; align-items: center; justify-content: center; color: #fff; }
+        .chat-online { font-size: 12px; color: #16a34a; display: flex; align-items: center; gap: 4px; }
+        .chat-online-dot { width: 6px; height: 6px; background: #16a34a; border-radius: 50%; }
+        .chat-close { padding: 8px; border-radius: 8px; border: none; background: transparent; cursor: pointer; }
+        .chat-close:hover { background: #f3f4f6; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+        .chat-msg.ai { background: #f3f4f6; color: #111827; border-bottom-left-radius: 4px; align-self: flex-start; }
+        .chat-msg.user { background: #2563eb; color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+        .chat-input-area { padding: 16px; border-top: 1px solid #e5e7eb; }
+        .chat-input-row { display: flex; gap: 8px; }
+        .chat-input { flex: 1; padding: 12px 16px; background: #f3f4f6; border: none; border-radius: 12px; font-size: 14px; outline: none; }
+        .chat-input:focus { box-shadow: 0 0 0 2px #3b82f6; }
+        .chat-send { padding: 12px 16px; background: #2563eb; color: #fff; border: none; border-radius: 12px; cursor: pointer; }
+        .chat-send:hover { background: #1d4ed8; }
+        .chat-quick { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+        .chat-quick-btn { padding: 6px 12px; background: #f3f4f6; border: none; border-radius: 16px; font-size: 12px; color: #4b5563; cursor: pointer; white-space: nowrap; }
+        .chat-quick-btn:hover { background: #e5e7eb; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .fade-in { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+        .link-btn { background: none; border: none; color: #2563eb; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+        .link-btn:hover { color: #1d4ed8; }
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .card-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .charter-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 16px; }
+        .charter-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+        .charter-title-area { display: flex; align-items: center; gap: 12px; }
+        .charter-icon { width: 40px; height: 40px; border-radius: 8px; background: #dbeafe; display: flex; align-items: center; justify-content: center; color: #2563eb; }
+        .charter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .charter-field { background: #f9fafb; border-radius: 8px; padding: 16px; }
+        .charter-field h4 { font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 8px; }
+        .charter-field p { font-size: 13px; color: #4b5563; }
+        .team-stat-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 24px; }
+        .team-stat-gradient { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
+        .data-source-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12px; color: #166534; }
+        .data-source-badge svg { width: 14px; height: 14px; }
+        .sprint-tag { display: inline-block; padding: 2px 8px; background: #fef3c7; color: #92400e; border-radius: 4px; font-size: 11px; margin-left: 8px; }
+        @media (max-width: 1024px) {
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-4 { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                </div>
+                <span class="logo-text">项目全生命周期档案平台</span>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="text" placeholder="搜索项目、文档...">
+                </div>
+                <button class="btn-ai" onclick="toggleChat()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    AI助手
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+        <aside class="sidebar">
+            <nav>
+                <button class="nav-item active" data-page="overview" onclick="switchPage('overview')">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+                    项目概览
+                </button>
+                <button class="nav-item" data-page="milestones" onclick="switchPage('milestones')">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    里程碑
+                </button>
+                <button class="nav-item" data-page="team" onclick="switchPage('team')">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    团队架构
+                </button>
+                <button class="nav-item" data-page="charters" onclick="switchPage('charters')">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    章程库
+                </button>
+                <button class="nav-item" data-page="tools" onclick="switchPage('tools')">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    工具栈
+                </button>
+            </nav>
+        </aside>
+
+        <div class="content">
+            <div id="page-overview" class="page active fade-in">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                    <span class="data-source-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        数据来源: Teambition - S6&amp;S6G项目
+                    </span>
+                </div>
+                <div class="stat-grid" id="stat-cards"></div>
+                <div class="card" id="project-info-card"></div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                近期任务
+                            </div>
+                            <button class="link-btn" onclick="switchPage('milestones')">查看全部</button>
+                        </div>
+                        <div id="overview-tasks"></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                迭代趋势
+                            </div>
+                            <button class="link-btn" onclick="switchPage('milestones')">详细查看</button>
+                        </div>
+                        <div id="overview-chart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-milestones" class="page fade-in">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                    <h2 class="section-title" style="margin-bottom:0;">项目里程碑时间轴</h2>
+                </div>
+                <div class="card" style="margin-bottom:24px;">
+                    <div id="milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
+                </div>
+                <div class="grid-4" style="margin-bottom:24px;" id="sprint-stats"></div>
+                <div class="card">
+                    <div style="max-height:600px;overflow-y:auto;">
+                        <div class="timeline" id="sprint-timeline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-team" class="page fade-in">
+                <h2 class="section-title">团队规模与架构</h2>
+                <div style="margin-bottom:24px;max-width:320px;" id="team-stats"></div>
+                <div class="grid-2" style="margin-bottom:24px;">
+                    <div class="card" style="grid-column:1/-1;">
+                        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">角色分布（职能组）</h3>
+                        <div id="team-pie-chart" style="display:flex;align-items:center;justify-content:center;height:280px;"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">项目成员列表</h3>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <tbody id="members-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-charters" class="page fade-in">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                    <h2 class="section-title" style="margin-bottom:0;">项目配置历史</h2>
+                    <span style="font-size:14px;color:#6b7280;">共 <span id="charters-count">0</span> 个版本</span>
+                </div>
+                <div id="charters-list"></div>
+            </div>
+
+            <div id="page-tools" class="page fade-in">
+                <h2 class="section-title">流程与工具栈</h2>
+                <p style="font-size:14px;color:#4b5563;margin-bottom:24px;" id="workflow-info"></p>
+                <div class="grid-2" style="margin-bottom:24px;" id="tools-grid"></div>
+                <div class="card">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">工作流类型</h3>
+                    <div class="flow-steps" id="flow-steps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-overlay" id="chat-overlay" onclick="toggleChat()"></div>
+    <div class="chat-panel" id="chat-panel">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="chat-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div>
+                    <h3 style="font-size:15px;font-weight:600;">AI 项目助手</h3>
+                    <div class="chat-online"><span class="chat-online-dot"></span> 在线</div>
+                </div>
+            </div>
+            <button class="chat-close" onclick="toggleChat()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="chat-msg ai">您好！我是项目AI助手，可以回答关于S6&amp;S6G项目的任何问题。</div>
+        </div>
+        <div class="chat-input-area">
+            <div class="chat-input-row">
+                <input class="chat-input" id="chat-input" placeholder="输入您的问题..." onkeypress="if(event.key==='Enter')sendChat()">
+                <button class="chat-send" onclick="sendChat()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </div>
+            <div class="chat-quick">
+                <button class="chat-quick-btn" onclick="quickChat('项目进度')">项目进度</button>
+                <button class="chat-quick-btn" onclick="quickChat('团队人数')">团队人数</button>
+                <button class="chat-quick-btn" onclick="quickChat('迭代情况')">迭代情况</button>
+                <button class="chat-quick-btn" onclick="quickChat('工作流')">工作流</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const tbData = {
+        project: { id: '5e7c0d630a65123a62774816', name: 'S6&S6G项目', description: '游戏S6和S6G版本开发与迭代管理', startDate: '2020-03-26' },
+        roleMap: {
+            '6085746469187acb5c645b72':'负责人',
+            '6085746469187acb5c645b79':'管理员',
+            '6085746469187acb5c645b90':'策划组',
+            '6085746469187acb5c645b93':'程序组',
+            '6085746469187acb5c645b9f':'美术组',
+            '6085746469187acb5c645ba4':'UE',
+            '6085746469187acb5c645ba8':'GUI',
+            '6085746469187acb5c645bac':'QA组',
+            '62a999ab617aa1043c10d198':'本地化组',
+            '63eee130795ebf01c846c976':'需求管理员',
+            '6613bacc95271813688c5fb5':'项目管理员',
+            '64b7cad44c13ecc5433fbb5c':'GUI',
+            '6a069e6aa6862ead41b7ad19':'程序组',
+        },
+        members: [
+            {name:'苏桐',dept:'制作人'},
+            {name:'孙健文',dept:'策划'},{name:'陆俊全',dept:'策划'},{name:'张小龙',dept:'策划'},
+            {name:'莫浩宁',dept:'策划'},{name:'唐伟杰',dept:'策划'},{name:'黄静怡',dept:'策划'},
+            {name:'WANG BO FAN',dept:'策划'},{name:'吉格斯',dept:'策划'},{name:'张耀民',dept:'策划'},
+            {name:'张思全',dept:'策划'},{name:'潘令华',dept:'策划'},{name:'肖意洲',dept:'策划'},
+            {name:'陈姚',dept:'策划'},{name:'龚姚尾',dept:'策划'},{name:'贾若颢',dept:'策划'},
+            {name:'叶世豪',dept:'策划'},{name:'高天宁',dept:'策划'},
+            {name:'黄建',dept:'客户端'},{name:'方长润',dept:'客户端'},{name:'刘喜行',dept:'客户端'},
+            {name:'陈仲法',dept:'客户端'},{name:'王桂海',dept:'客户端'},{name:'陶泽綦',dept:'客户端'},
+            {name:'韦蒙',dept:'客户端'},{name:'侯伟韬',dept:'客户端'},{name:'刘翔',dept:'客户端'},
+            {name:'林政国',dept:'客户端'},{name:'李思延',dept:'客户端'},{name:'冯吉',dept:'客户端'},
+            {name:'胡佳伟',dept:'客户端'},
+            {name:'黄炎财',dept:'服务器'},{name:'欧贵安',dept:'服务器'},{name:'郑楚群',dept:'服务器'},
+            {name:'蔡润青',dept:'服务器'},{name:'莫镓闻',dept:'服务器'},{name:'王佳丽',dept:'服务器'},
+            {name:'王新华',dept:'服务器'},{name:'杨祖义',dept:'服务器'},{name:'翁凤文',dept:'服务器'},
+            {name:'孙旋',dept:'QA'},{name:'黄钰凯',dept:'QA'},{name:'李维帅',dept:'QA'},
+            {name:'杨兴安',dept:'QA'},{name:'陈文强',dept:'QA'},{name:'蔡星杰',dept:'QA'},
+            {name:'陈琪男',dept:'QA'},{name:'曾聪',dept:'QA'},{name:'罗奕明',dept:'QA'},
+            {name:'李诗慧',dept:'QA'},{name:'李浩',dept:'QA'},{name:'田茂东',dept:'QA'},
+            {name:'陈永嘉',dept:'QA'},{name:'张启睿',dept:'QA'},{name:'刘智刚',dept:'QA'},
+            {name:'王杰翔',dept:'美术'},{name:'黄慈',dept:'美术'},{name:'吴舟',dept:'美术'},
+            {name:'王洋',dept:'PM'},{name:'胡晋玉',dept:'PM'},{name:'李雨桐',dept:'PM'},
+            {name:'刘明浩',dept:'UE'},{name:'何巧欣',dept:'UE'},{name:'陈诗艳',dept:'UE'},
+            {name:'李嘉丽',dept:'GUI'},{name:'黄伟涛',dept:'GUI'},{name:'刘惠珍',dept:'GUI'},
+            {name:'甘钰钧',dept:'GUI'},
+            {name:'黎芷彤',dept:'动效'},{name:'简炜泉',dept:'动效'},
+            {name:'欧伟滔',dept:'输出'},{name:'徐依露',dept:'输出'},{name:'谭月皓',dept:'输出'},
+            {name:'周佳',dept:'本地化'},{name:'张琳',dept:'本地化'},{name:'菅皓月',dept:'本地化'},
+        ],
+        tasks: [
+            {uniqueId:99742,content:'【S6G】宣战功能2期优化交互',isDone:false,created:'2026-05-16T09:25:53.230Z',executorId:'60b8e1112c0a63e8ab34e2fa',customFields:{需求类型:'是'}},
+            {uniqueId:99741,content:'【S6G】【配置】宣战功能2期',isDone:false,created:'2026-05-16T09:25:37.955Z',executorId:'6840df372a1a70de74cfbe17',customFields:{业务线:'S6G',需求类型:'首版',严重程度:'正常'}},
+            {uniqueId:99740,content:'【S6G】【服务端】宣战功能2期优化',isDone:false,created:'2026-05-16T09:25:07.037Z',executorId:'6232f5bf4ba2324d8d69e812',customFields:{业务线:'S6G',需求类型:'首版',严重程度:'正常'}},
+            {uniqueId:99739,content:'【S6G】【客户端】宣战功能2期优化',isDone:false,created:'2026-05-16T09:24:40.944Z',executorId:'675f62b18577457103d3c09f',customFields:{业务线:'S6G',需求类型:'首版',严重程度:'正常'}},
+            {uniqueId:99738,content:'【S6G】宣战功能2期优化总单',isDone:false,created:'2026-05-16T09:24:04.526Z',executorId:'6840df372a1a70de74cfbe17',customFields:{业务线:'S6G',需求类型:'首版',严重程度:'正常',版本:'5月版本'}},
+            {uniqueId:99737,content:'【S6G&】无极缩放美术资源',isDone:false,created:'2026-05-16T09:17:36.673Z',executorId:'5d635379a779040001b0d8ee',customFields:{需求类型:'否'}},
+            {uniqueId:99736,content:'【S6G】点击演义有报错',isDone:false,created:'2026-05-16T09:01:09.322Z',executorId:'68212e31617d6d6be43a4cff',customFields:{优先级:'P2-一般',需求类型:'是'}},
+            {uniqueId:99735,content:'【S6G&S6】无极缩放功能补充5月版本-客户端',isDone:false,created:'2026-05-16T08:38:51.336Z',executorId:'5f87ab98ef02d7ff6e0c30c5',customFields:{业务线:'S6,S6G',需求类型:'首版',严重程度:'正常'}},
+            {uniqueId:99734,content:'【S6G&S6】无极缩放功能补充-5月版本',isDone:false,created:'2026-05-16T08:37:40.487Z',executorId:'67c8d9c9617d6d6be43a002a',customFields:{业务线:'S6,S6G',需求类型:'首版',严重程度:'正常'}},
+            {uniqueId:99733,content:'【S6G】【策书】战斗策书配置章节错误',isDone:false,created:'2026-05-16T08:31:48.340Z',executorId:'69ee9b7af2f90078c232a413',customFields:{优先级:'P2-一般',需求类型:'是'}},
+        ],
+        sprints: [
+            {name:'3月版本',startDate:'2020-03-02',dueDate:'2020-04-08',status:'complete',accomplished:'2020-04-16'},
+            {name:'【4.23-4.29】迭代',startDate:'2020-04-22',dueDate:'2020-04-29',status:'complete',accomplished:'2020-04-30'},
+            {name:'【4.30-5.15】迭代，515封包',startDate:'2020-04-29',dueDate:'2020-05-15',status:'complete',accomplished:'2020-05-19',description:'因跨五一假期，调整到5/15日迭代'},
+            {name:'5/29日评审包',startDate:'2020-05-17',dueDate:'2020-05-29',status:'complete',accomplished:'2020-06-01',description:'修复bug，输出评审包'},
+            {name:'【6.1-6.10】迭代',startDate:'2020-05-31',dueDate:'2020-06-10',status:'complete',accomplished:'2020-06-11'},
+            {name:'【6.11-6.17】迭代',startDate:'2020-06-10',dueDate:'2020-06-17',status:'complete',accomplished:'2020-06-18'},
+            {name:'【6.18-6.24】迭代',startDate:'2020-06-17',dueDate:'2020-06-24',status:'complete',accomplished:'2020-06-28'},
+            {name:'【6.25-7.1】6月版本包',startDate:'2020-06-24',dueDate:'2020-06-30',status:'complete',accomplished:'2020-07-02',description:'输出6月月版本IOS包'},
+            {name:'【7.2-7.8】迭代',startDate:'2020-07-01',dueDate:'2020-07-07',status:'complete',accomplished:'2020-07-09'},
+            {name:'【7.9-7.15】迭代',startDate:'2020-07-08',dueDate:'2020-07-14',status:'complete',accomplished:'2020-07-16',description:'Alpha2'},
+            {name:'【7.16-7.22】迭代',startDate:'2020-07-15',dueDate:'2020-07-21',status:'complete',accomplished:'2020-07-23',description:'Alpha2'},
+            {name:'【7.23-7.29】迭代',startDate:'2020-07-22',dueDate:'2020-07-28',status:'complete',accomplished:'2020-07-29',description:'Alpha2'},
+            {name:'【7.30-8.5】7月版本包',startDate:'2020-07-29',dueDate:'2020-08-04',status:'complete',accomplished:'2020-08-05',description:'Alpha2'},
+            {name:'【8.6-8.12】迭代',startDate:'2020-08-05',dueDate:'2020-08-11',status:'complete',accomplished:'2020-08-12',description:'Alpha2'},
+            {name:'【8.13-8.19】迭代',startDate:'2020-08-12',dueDate:'2020-08-18',status:'complete',accomplished:'2020-08-19',description:'Alpha2'},
+            {name:'【8.20-8.26】迭代',startDate:'2020-08-19',dueDate:'2020-08-25',status:'complete',accomplished:'2020-08-26'},
+            {name:'【8.27-9.2】迭代',startDate:'2020-08-26',dueDate:'2020-09-01',status:'complete',accomplished:'2020-09-02'},
+            {name:'【9.3-9.9】迭代',startDate:'2020-09-02',dueDate:'2020-09-08',status:'complete',accomplished:'2020-09-10'},
+            {name:'【9.10-9.16】迭代',startDate:'2020-09-09',dueDate:'2020-09-15',status:'complete',accomplished:'2020-09-17'},
+            {name:'【9.17-9.23】迭代（开发封版节点）',startDate:'2020-09-16',dueDate:'2020-09-22',status:'complete',accomplished:'2020-09-23'},
+            {name:'【9.24-9.30】迭代',startDate:'2020-09-23',dueDate:'2020-09-29',status:'complete',accomplished:'2020-09-30'},
+            {name:'【10.8-10.14】迭代',startDate:'2020-10-07',dueDate:'2020-10-13',status:'complete',accomplished:'2020-10-15'},
+            {name:'【10.15-10.21】迭代',startDate:'2020-10-14',dueDate:'2020-10-20',status:'complete',accomplished:'2020-10-22'},
+            {name:'【10.22-10.28】迭代',startDate:'2020-10-21',dueDate:'2020-10-27',status:'complete',accomplished:'2020-10-28'},
+            {name:'【10.29-11.4】迭代',startDate:'2020-10-28',dueDate:'2020-11-03',status:'complete',accomplished:'2020-11-04'},
+            {name:'【11.5-11.11】迭代',startDate:'2020-11-04',dueDate:'2020-11-10',status:'complete',accomplished:'2020-11-11'},
+            {name:'【11.12-11.18】迭代',startDate:'2020-11-11',dueDate:'2020-11-17',status:'complete',accomplished:'2020-11-18'},
+            {name:'【11.19-11.25】迭代',startDate:'2020-11-18',dueDate:'2020-11-24',status:'complete',accomplished:'2020-11-25'},
+            {name:'【11.26-12.2】迭代',startDate:'2020-11-25',dueDate:'2020-12-01',status:'complete',accomplished:'2020-12-03'},
+            {name:'【12.3-12.9】迭代',startDate:'2020-12-02',dueDate:'2020-12-08',status:'complete',accomplished:'2020-12-09'},
+            {name:'【12.10-12.16】迭代',startDate:'2020-12-09',dueDate:'2020-12-15',status:'complete',accomplished:'2020-12-17'},
+            {name:'【12.17-12.23】迭代',startDate:'2020-12-16',dueDate:'2020-12-22',status:'complete',accomplished:'2020-12-24'},
+            {name:'【12.24-12.30】迭代',startDate:'2020-12-23',dueDate:'2020-12-29',status:'complete',accomplished:'2020-12-30'},
+            {name:'【12.31-1.6】迭代',startDate:'2020-12-30',dueDate:'2021-01-05',status:'complete',accomplished:'2021-01-07'},
+            {name:'【1.7-1.13】迭代',startDate:'2021-01-06',dueDate:'2021-01-12',status:'complete',accomplished:'2021-01-13'},
+            {name:'【1.15】要拉分支',startDate:'2021-01-11',dueDate:'2021-01-15',status:'complete',accomplished:'2021-01-15',description:'1.13日封版，15号功能测试完，并拉分支'},
+            {name:'【1.18-1.20】分支开发',startDate:'2021-01-17',dueDate:'2021-01-20',status:'complete',accomplished:'2021-01-21',description:'1月CE版本需要提交的bug，策划配置修改'},
+            {name:'【1.21-1.27】迭代',startDate:'2021-01-20',dueDate:'2021-01-26',status:'complete',accomplished:'2021-01-27'},
+            {name:'【1.28-2.3】迭代',startDate:'2021-01-27',dueDate:'2021-02-02',status:'complete',accomplished:'2021-02-03'},
+            {name:'【2.4-2.10】迭代',startDate:'2021-02-03',dueDate:'2021-02-09',status:'complete',accomplished:'2021-02-10'},
+            {name:'【2.18-2.24】迭代',startDate:'2021-02-17',dueDate:'2021-02-23',status:'complete',accomplished:'2021-02-24'},
+            {name:'【2.25-3.3】迭代',startDate:'2021-02-24',dueDate:'2021-03-02',status:'complete',accomplished:'2021-03-03'},
+            {name:'【3.4-3.10】迭代',startDate:'2021-03-03',dueDate:'2021-03-09',status:'complete',accomplished:'2021-03-10'},
+            {name:'【3.11-3.17】迭代',startDate:'2021-03-10',dueDate:'2021-03-16',status:'complete',accomplished:'2021-03-18'},
+            {name:'【3.18-3.24日】迭代',startDate:'2021-03-17',dueDate:'2021-03-24',status:'complete',accomplished:'2021-03-24'},
+            {name:'【3.25-3.29日】开发+功能测试完成',startDate:'2021-03-24',dueDate:'2021-03-29',status:'complete',accomplished:'2021-03-30'},
+            {name:'【3.30-4.2】回归测试+终包',startDate:'2021-03-29',dueDate:'2021-04-02',status:'complete',accomplished:'2021-04-02'},
+            {name:'【4.6-4.14日】迭代',startDate:'2021-04-05',dueDate:'2021-04-14',status:'complete',accomplished:'2021-04-15'},
+            {name:'【4.15-4.28日】迭代',startDate:'2021-04-14',dueDate:'2021-04-28',status:'complete',accomplished:'2021-04-29'},
+            {name:'测试pending',status:'future',description:'防止需求遗漏，测试发现有些需求不能再本次迭代完成'},
+        ],
+        milestones: [
+            {phase:'运营期',startDate:'2023-03',endDate:'至今',status:'active',description:'正式运营阶段',subMilestones:[
+                {name:'1周年',startDate:'2023-03',endDate:'2024-03',status:'completed'},
+                {name:'2周年',startDate:'2024-04',endDate:'2025-03',status:'completed'},
+                {name:'3周年',startDate:'2025-04',endDate:'2026-03',status:'completed'},
+                {name:'4周年',startDate:'2026-04',endDate:'2027-03',status:'active'},
+            ]},
+            {phase:'β期',startDate:'2021-10',endDate:'2023-01',status:'completed',description:'Beta阶段，多轮公开测试',subMilestones:[
+                {name:'PBT1',startDate:'2021-09',endDate:'2021-09',status:'completed'},
+                {name:'PBT2',startDate:'2022-01',endDate:'2022-03',status:'completed'},
+                {name:'PBT3',startDate:'2022-08',endDate:'2022-11',status:'completed'},
+                {name:'CBT',startDate:'2023-01',endDate:'2023-01',status:'completed'},
+            ]},
+            {phase:'α期',startDate:'2020-03',endDate:'2021-09',status:'completed',description:'Alpha阶段，包含多轮内部测试',subMilestones:[
+                {name:'Alpha1',startDate:'2020-03',endDate:'2020-06',status:'completed'},
+                {name:'Alpha2',startDate:'2020-07',endDate:'2020-10',status:'completed'},
+                {name:'Alpha3',startDate:'2020-11',endDate:'2021-09',status:'completed'},
+                {name:'公司内测',startDate:'2021-07',endDate:'2021-07',status:'completed'},
+            ]},
+            {phase:'Demo期',startDate:'2019-11',endDate:'2020-02',status:'completed',description:'项目Demo阶段'},
+        ],
+        workflows: [
+            {name:'缺陷默认工作流'},{name:'测试工作流'},{name:'里程碑工作流'},{name:'策划设计'},{name:'开发需求'},{name:'技术需求'},
+            {name:'设计需求（计件）'},{name:'美术需求'},{name:'UX需求'},{name:'需求/任务默认工作流'},{name:'紧急外放'},{name:'关卡需求'},{name:'QA需求'},{name:'开发需求（含策划初步验收）'},
+        ],
+    };
+
+    const deptOrder = ['制作人','策划','客户端','服务器','QA','美术','UE','GUI','动效','输出','PM','本地化'];
+    const deptColorMap = {
+        '制作人': '#dc2626',
+        '策划': '#2563eb',
+        '客户端': '#16a34a',
+        '服务器': '#0891b2',
+        'QA': '#7c3aed',
+        '美术': '#db2777',
+        'UE': '#ea580c',
+        'GUI': '#3730a3',
+        '动效': '#0f766e',
+        '输出': '#b45309',
+        'PM': '#5b21b6',
+        '本地化': '#3f6212'
+    };
+    const deptBadgeMap = {
+        '制作人': 'badge-red',
+        '策划': 'badge-blue',
+        '客户端': 'badge-green',
+        '服务器': 'badge-cyan',
+        'QA': 'badge-purple',
+        '美术': 'badge-pink',
+        'UE': 'badge-orange',
+        'GUI': 'badge-indigo',
+        '动效': 'badge-teal',
+        '输出': 'badge-amber',
+        'PM': 'badge-violet',
+        '本地化': 'badge-lime'
+    };
+
+    function switchPage(id) { document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); document.getElementById('page-'+id).classList.add('active'); document.querySelector('[data-page="'+id+'"]').classList.add('active'); }
+    function toggleChat() { document.getElementById('chat-overlay').classList.toggle('show'); document.getElementById('chat-panel').classList.toggle('show'); }
+    function quickChat(t) { document.getElementById('chat-input').value=t; sendChat(); }
+    function sendChat() {
+        const inp=document.getElementById('chat-input'), txt=inp.value.trim(); if(!txt) return;
+        const md=document.getElementById('chat-messages'); md.innerHTML+='<div class="chat-msg user">'+esc(txt)+'</div>'; inp.value='';
+        setTimeout(()=>{
+            const p=tbData.project,mc=tbData.members.length,tc=tbData.tasks.length,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length;
+            let r='';
+            if(txt.includes('进度')) r='📈 项目进度：\n• 启动: '+p.startDate+'\n• 项目阶段: '+tbData.milestones.length+' 个\n• 里程碑节点: '+tbData.milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+' 个\n• 活跃任务: '+tc+' 个\n• 团队: '+mc+' 人\n• 工作流: '+tbData.workflows.length+' 种';
+            else if(txt.includes('里程碑')||txt.includes('阶段')){r='🏆 项目里程碑阶段：\n';tbData.milestones.forEach(m=>{r+='\n'+m.phase+' ('+m.startDate+' ~ '+m.endDate+')';if(m.subMilestones){m.subMilestones.forEach(sub=>{r+='\n  ├── '+sub.name+' ('+sub.startDate+' ~ '+sub.endDate+')';});}r+='\n';});}
+            else if(txt.includes('团队')||txt.includes('人数')){
+                const deptCount = {};
+                tbData.members.forEach(m => {
+                    if(!deptCount[m.dept]) deptCount[m.dept] = 0;
+                    deptCount[m.dept]++;
+                });
+                r='👥 常驻团队（钉钉文档统计）：\n• 总人数: '+tbData.members.length+'人\n\n各职能组分布：\n';
+                deptOrder.forEach(dept => {
+                    if(deptCount[dept]) {
+                        r+='• '+dept+': '+deptCount[dept]+'人\n';
+                    }
+                });
+            }
+            else if(txt.includes('迭代')) r='🔄 迭代：\n• 总数: '+sc+' 个\n• 已完成: '+ds+' 个\n• 时间: 2020年3月 - 2021年4月\n• 频率: 约每周1个';
+            else if(txt.includes('任务')){r='📋 最新任务：\n';tbData.tasks.slice(0,5).forEach(t=>{r+='• #'+t.uniqueId+' '+t.content+'\n';});}
+            else if(txt.includes('工作流')){r='🔧 工作流('+tbData.workflows.length+'种)：\n';tbData.workflows.forEach((w,i)=>{r+=(i+1)+'. '+w.name+'\n';});}
+            else r='项目 "'+p.name+'"：\n• ID: '+p.id+'\n• 启动: '+p.startDate+'\n• 团队: '+mc+' 人\n• 迭代: '+sc+' 个\n• 工作流: '+tbData.workflows.length+' 种';
+            md.innerHTML+='<div class="chat-msg ai">'+r+'</div>'; md.scrollTop=md.scrollHeight;
+        },500); md.scrollTop=md.scrollHeight;
+    }
+    function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+
+    function renderStatCards(){
+        const p=tbData.project,tc=tbData.tasks.length,mc=tbData.members.length,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length,y=Math.floor((Date.now()-new Date(p.startDate).getTime())/31536000000);
+        document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="stat-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="stat-value">'+tc+'</div><div class="stat-label">活跃任务</div><div class="stat-sub">最新10条</div></div><div class="stat-card"><div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-value">'+mc+'人</div><div class="stat-label">团队成员</div><div class="stat-sub">1负责人 2管理员</div></div><div class="stat-card"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-value">'+sc+'</div><div class="stat-label">迭代总数</div><div class="stat-sub">'+ds+' 已完成</div></div><div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><div class="stat-value">'+y+'年</div><div class="stat-label">项目运行</div><div class="stat-sub">'+p.startDate+' 起</div></div>';
+    }
+
+    function renderProjectInfo(){
+        const p=tbData.project,ds=tbData.sprints.filter(s=>s.status==='complete').length,sc=tbData.sprints.length,pr=Math.round(ds/sc*100);
+        document.getElementById('project-info-card').innerHTML='<div style="display:flex;justify-content:space-between;align-items:start;"><div><h2 style="font-size:20px;font-weight:700;">'+p.name+'</h2><p style="font-size:14px;color:#6b7280;margin-top:4px;">Teambition项目ID: '+p.id+'</p><p style="font-size:14px;color:#374151;margin-top:8px;">'+p.description+'</p><div style="display:flex;gap:8px;margin-top:8px;"><span class="badge badge-blue">S6/S6G双模块</span><span class="badge badge-green">游戏开发</span></div></div><span class="badge badge-green">活跃</span></div><div class="info-grid"><div class="info-item"><label>启动日期</label><span>'+p.startDate+'</span></div><div class="info-item"><label>迭代完成率</label><span>'+pr+'%</span></div><div class="info-item"><label>工作流数</label><span>'+tbData.workflows.length+' 种</span></div><div class="info-item"><label>业务线</label><span>S6 / S6G</span></div><div class="info-item"><label>Teambition</label><span><a href="https://teambition.alibaba-inc.com/project/'+p.id+'" target="_blank" style="color:#2563eb;">打开项目</a></span></div></div><div style="margin-top:16px;"><div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#4b5563;">迭代完成进度 ('+ds+'/'+sc+')</span><span style="font-weight:500;">'+pr+'%</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pr+'%;"></div></div></div>';
+    }
+
+    function renderOverviewTasks(){
+        document.getElementById('overview-tasks').innerHTML='<a href="https://alidocs.dingtalk.com/i/teams/nb9XJNBry0bgXyAp/overview" target="_blank" style="text-decoration:none;display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow=\'0 4px 12px rgba(0,0,0,0.08)\'" onmouseout="this.style.boxShadow=\'none\'"><div style="display:flex;align-items:center;gap:16px;"><div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1677ff,#722ed1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;">📚</div><div style="flex:1;"><h3 style="font-size:16px;font-weight:600;color:#111827;margin:0;">S6/S6G 钉钉知识库</h3><p style="font-size:13px;color:#6b7280;margin-top:6px;line-height:1.5;">项目文档、策划案、技术方案、美术资源等资料汇总</p></div><div style="color:#2563eb;font-size:14px;font-weight:500;white-space:nowrap;">进入知识库 →</div></div></a>';
+    }
+
+    function renderAreaChart(){
+        const c=document.getElementById('overview-chart'),md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
+        const ms=Object.keys(md).sort();if(!ms.length){c.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无数据</p>';return;}
+        const vs=ms.map(m=>md[m]),mx=Math.max(...vs),W=c.offsetWidth||500,H=200,P=40;
+        let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+(H+30)+'">';
+        for(let i=0;i<=4;i++){const y=P+(H-P)*(1-i/4);svg+='<line x1="'+P+'" y1="'+y+'" x2="'+(W-10)+'" y2="'+y+'" stroke="#e5e7eb" stroke-dasharray="3,3"/>';svg+='<text x="'+(P-5)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#6b7280">'+Math.round(mx*i/4)+'</text>';}
+        const pts=vs.map((v,i)=>({x:P+(W-P-10)*(i/(vs.length-1||1)),y:P+(H-P)*(1-v/(mx||1))}));
+        if(pts.length>1){svg+='<path d="M'+pts[0].x+','+H+' L'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+' L'+pts[pts.length-1].x+','+H+' Z" fill="#10b981" fill-opacity="0.15"/>';svg+='<path d="M'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+'" fill="none" stroke="#10b981" stroke-width="2"/>';}
+        pts.forEach((p,i)=>{svg+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" fill="#10b981"/>';if(i%Math.ceil(ms.length/8)===0||i===ms.length-1)svg+='<text x="'+p.x.toFixed(1)+'" y="'+(H+18)+'" text-anchor="middle" font-size="9" fill="#6b7280">'+ms[i].substring(2)+'</text>';});
+        svg+='</svg>';c.innerHTML=svg;
+    }
+
+    function renderSprintTimeline(){
+        const milestones = tbData.milestones;
+        document.getElementById('sprint-stats').innerHTML = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
+        const c=document.getElementById('sprint-timeline');
+        c.innerHTML=milestones.map(phase=>{
+            const icon = phase.status==='completed'?'✓':phase.status==='active'?'◉':'◷';
+            const dotClass = phase.status==='completed'?'completed':phase.status==='active'?'planned':'planned';
+            const badge = phase.status==='completed'?'<span class="badge badge-green">已完成</span>':phase.status==='active'?'<span class="badge badge-blue">运营中</span>':'<span class="badge badge-yellow">规划中</span>';
+            let html = '<div class="timeline-item"><div class="timeline-dot '+dotClass+'">'+icon+'</div><div class="timeline-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><h4 style="font-size:14px;font-weight:600;">'+phase.phase+'</h4>'+badge+'</div><div style="display:flex;gap:16px;font-size:12px;color:#6b7280;"><span>开始: '+phase.startDate+'</span><span>结束: '+phase.endDate+'</span></div><p style="font-size:12px;color:#4b5563;margin-top:4px;">'+phase.description+'</p>';
+            if(phase.subMilestones && phase.subMilestones.length > 0){
+                html += '<div style="margin-top:12px;padding-left:16px;border-left:2px solid #e5e7eb;">';
+                phase.subMilestones.forEach(sub=>{
+                    const subIcon = sub.status==='completed'?'✓':sub.status==='planned'?'':'◷';
+                    const subBadge = sub.status==='completed'?'<span class="badge badge-green" style="font-size:10px;">已完成</span>':sub.status==='planned'?'<span class="badge badge-blue" style="font-size:10px;">计划中</span>':'<span class="badge badge-yellow" style="font-size:10px;">待完成</span>';
+                    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="color:'+(sub.status==='completed'?'#16a34a':'#3b82f6')+';font-size:12px;">'+subIcon+'</span><span style="font-size:13px;font-weight:500;flex:1;">'+sub.name+'</span><span style="font-size:11px;color:#6b7280;">'+sub.startDate+' ~ '+sub.endDate+'</span>'+subBadge+'</div>';
+                });
+                html += '</div>';
+            }
+            html += '</div></div>';
+            return html;
+        }).join('');
+    }
+
+    function renderTeamStats(){
+        const m=tbData.members;
+        const deptCount = {};
+        m.forEach(member => {
+            if(!deptCount[member.dept]) deptCount[member.dept] = 0;
+            deptCount[member.dept]++;
+        });
+        const totalUnique = m.length;
+        let statsHtml = '<div class="team-stat-card team-stat-gradient"><p style="font-size:13px;opacity:0.8;">常驻团队人数</p><p style="font-size:36px;font-weight:700;margin-top:8px;">'+totalUnique+'</p><p style="font-size:13px;opacity:0.8;margin-top:8px;">来自钉钉文档常驻人员名单</p></div>';
+        document.getElementById('team-stats').innerHTML = statsHtml;
+    }
+
+    function renderTeamTimelineChart(){}
+
+    function renderPieChart(){
+        const c=document.getElementById('team-pie-chart'),m=tbData.members;
+        const deptCount = {};
+        m.forEach(member => {
+            if(!deptCount[member.dept]) deptCount[member.dept] = 0;
+            deptCount[member.dept]++;
+        });
+        const data = deptOrder.filter(dept => deptCount[dept]).map(dept => ({
+            name: dept, value: deptCount[dept], color: deptColorMap[dept]
+        }));
+        const total = data.reduce((s,d)=>s+d.value,0);
+        let svg='<svg width="200" height="200" viewBox="-120 -120 240 240">',sa=0;
+        data.forEach(d=>{const ea=sa+(d.value/total)*360,sr=(sa-90)*Math.PI/180,er=(ea-90)*Math.PI/180,x1=Math.cos(sr)*100,y1=Math.sin(sr)*100,x2=Math.cos(er)*100,y2=Math.sin(er)*100,la=(ea-sa)>180?1:0;svg+='<path d="M 0 0 L '+x1+' '+y1+' A 100 100 0 '+la+' 1 '+x2+' '+y2+' Z" fill="'+d.color+'" stroke="#fff" stroke-width="2"/>';sa=ea;});
+        svg+='</svg>';c.innerHTML='<div class="pie-chart-container">'+svg+'<div class="pie-legend">'+data.map(d=>'<div class="pie-legend-item"><span class="pie-legend-color" style="background:'+d.color+';"></span>'+d.name+' '+d.value+'人 ('+Math.round(d.value/total*100)+'%)</div>').join('')+'</div></div>';
+    }
+
+    function renderMembersTable(){
+        const m=tbData.members;
+        const sorted = [...m].sort((a,b) => {
+            const idxA = deptOrder.indexOf(a.dept);
+            const idxB = deptOrder.indexOf(b.dept);
+            if(idxA !== idxB) return idxA - idxB;
+            return a.name.localeCompare(b.name, 'zh');
+        });
+        document.getElementById('members-table').innerHTML=
+            '<thead><tr><th style="width:50px;">序号</th><th style="width:120px;">职能组</th><th>姓名</th></tr></thead><tbody>'+
+            sorted.map((member,i)=>{
+                const colorClass = deptBadgeMap[member.dept] || 'badge-gray';
+                return '<tr><td>'+(i+1)+'</td><td><span class="badge '+colorClass+'">'+member.dept+'</span></td><td style="font-weight:500;">'+member.name+'</td></tr>';
+            }).join('')+'</tbody>';
+    }
+
+    function renderCharters(){
+        const p=tbData.project,charters=[{version:'v1.0',date:p.startDate,author:'项目创建者',changes:'项目初始化 - S6&S6G游戏开发项目创建',goals:p.description,scope:'S6和S6G双模块游戏开发与迭代管理',constraints:'工作流: '+tbData.workflows.length+' 种 | 团队: '+tbData.members.length+' 人'},{version:'v2.0',date:'2021-06-02',author:'项目管理团队',changes:'新增需求/任务默认工作流，完善工作流体系',goals:'优化任务管理流程',scope:'引入标准化工作流模板',constraints:'14种工作流类型覆盖全生命周期'},{version:'v3.0',date:'2026-03-10',author:'项目管理团队',changes:'新增QA需求工作流，新增开发需求（含策划初步验收）工作流',goals:'提升质量和验收流程',scope:'QA和质量管理体系',constraints:'持续完善工作流'}];
+        document.getElementById('charters-count').textContent=charters.length;
+        document.getElementById('charters-list').innerHTML=charters.map((c,i)=>{const lt=i===charters.length-1;return '<div class="charter-card"><div class="charter-header"><div class="charter-title-area"><div class="charter-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg></div><div><h3 style="font-size:16px;font-weight:600;">配置版本 '+c.version+'</h3><p style="font-size:13px;color:#6b7280;">'+c.date+' | 作者: '+c.author+'</p></div></div>'+(lt?'<span class="badge badge-blue">当前版本</span>':'')+'</div><div class="charter-grid"><div class="charter-field"><h4>变更说明</h4><p>'+c.changes+'</p></div><div class="charter-field"><h4>项目目标</h4><p>'+c.goals+'</p></div><div class="charter-field"><h4>项目范围</h4><p>'+c.scope+'</p></div><div class="charter-field"><h4>约束条件</h4><p>'+c.constraints+'</p></div></div></div>';}).join('');
+    }
+
+    function renderTools(){
+        const ts=[{phase:'策划与设计',process:'策划设计工作流',tools:[{name:'Teambition',category:'策划设计',icon:'📋'},{name:'UX需求',category:'UX设计',icon:'🎨'}]},{phase:'开发与实现',process:'开发需求/技术需求',tools:[{name:'SVN',category:'代码管理',icon:'🔧'},{name:'客户端开发',category:'客户端',icon:'💻'},{name:'服务器开发',category:'服务端',icon:'🖥️'},{name:'配置管理',category:'配置',icon:'⚙️'}]},{phase:'美术与资源',process:'美术需求',tools:[{name:'美术资源制作',category:'美术',icon:'🎭'},{name:'UX交互文档',category:'交互',icon:'📐'}]},{phase:'测试与质量',process:'测试工作流/缺陷管理',tools:[{name:'QA需求',category:'QA',icon:'🔍'},{name:'缺陷管理',category:'缺陷',icon:'🐛'},{name:'测试Pending',category:'测试',icon:'⏳'}]}];
+        document.getElementById('workflow-info').innerHTML='当前工作流体系: <span style="font-weight:500;color:#2563eb;">'+tbData.workflows.length+' 种工作流类型</span> | 项目ID: '+tbData.project.id;
+        document.getElementById('tools-grid').innerHTML=ts.map(ph=>'<div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:4px;">'+ph.phase+'</h3><p style="font-size:12px;color:#6b7280;margin-bottom:16px;">流程: '+ph.process+'</p><div class="grid-2">'+ph.tools.map(t=>'<div class="tool-card"><span class="tool-icon">'+t.icon+'</span><div><p style="font-size:13px;font-weight:500;">'+t.name+'</p><p style="font-size:11px;color:#6b7280;">'+t.category+'</p></div></div>').join('')+'</div></div>').join('');
+    }
+
+    function renderFlowSteps(){ const wf=tbData.workflows; document.getElementById('flow-steps').innerHTML=wf.map((w,i)=>{const ar=i<wf.length-1?'<span class="flow-arrow">›</span>':'';return '<div class="flow-step"><div class="flow-step-num" style="width:36px;height:36px;font-size:12px;">'+(i+1)+'</div><p class="flow-step-label" style="font-size:10px;">'+w.name+'</p></div>'+ar;}).join(''); }
+
+    function renderMilestoneTimeline(){
+        const milestones = tbData.milestones;
+        const c = document.getElementById('milestone-timeline-visual');
+        let html = '<div style="min-width:800px;padding:20px 40px;position:relative;">';
+        html += '<div style="position:relative;height:120px;margin-bottom:40px;">';
+        html += '<div style="position:absolute;top:50px;left:0;right:0;height:3px;background:#e5e7eb;border-radius:2px;"></div>';
+        const totalWidth = 100;
+        const phaseWidth = totalWidth / milestones.length;
+        milestones.forEach((phase, i) => {
+            const leftPercent = i * phaseWidth + phaseWidth / 2;
+            const color = phase.status === 'completed' ? '#16a34a' : phase.status === 'active' ? '#2563eb' : '#f59e0b';
+            html += '<div style="position:absolute;left:'+leftPercent+'%;transform:translateX(-50%);text-align:center;">';
+            html += '<div style="width:24px;height:24px;border-radius:50%;background:'+color+';border:4px solid #fff;box-shadow:0 0 0 2px '+color+';margin:0 auto 8px;"></div>';
+            html += '<div style="font-size:14px;font-weight:600;color:#111827;margin-bottom:4px;">'+phase.phase+'</div>';
+            html += '<div style="font-size:12px;color:'+color+';">'+phase.startDate+' ~ '+phase.endDate+'</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+        milestones.forEach((phase, i) => {
+            const color = phase.status === 'completed' ? '#16a34a' : phase.status === 'active' ? '#2563eb' : '#f59e0b';
+            const bgColor = phase.status === 'completed' ? '#f0fdf4' : phase.status === 'active' ? '#eff6ff' : '#fffbeb';
+            const borderColor = phase.status === 'completed' ? '#bbf7d0' : phase.status === 'active' ? '#bfdbfe' : '#fde68a';
+            html += '<div style="background:'+bgColor+';border:1px solid '+borderColor+';border-radius:8px;padding:16px;margin-bottom:12px;">';
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+            html += '<div style="display:flex;align-items:center;gap:8px;">';
+            html += '<div style="width:8px;height:8px;border-radius:50%;background:'+color+';"></div>';
+            html += '<h4 style="font-size:15px;font-weight:600;color:#111827;">'+phase.phase+'</h4>';
+            html += '</div>';
+            html += '<span style="font-size:12px;color:'+color+';font-weight:500;">'+phase.startDate+' ~ '+phase.endDate+'</span>';
+            html += '</div>';
+            html += '<p style="font-size:13px;color:#4b5563;margin-bottom:12px;">'+phase.description+'</p>';
+            if(phase.subMilestones && phase.subMilestones.length > 0){
+                html += '<div style="display:flex;gap:12px;flex-wrap:wrap;">';
+                phase.subMilestones.forEach(sub => {
+                    const subColor = sub.status === 'completed' ? '#16a34a' : sub.status === 'active' ? '#2563eb' : '#f59e0b';
+                    const subBg = sub.status === 'completed' ? '#dcfce7' : sub.status === 'active' ? '#dbeafe' : '#fef3c7';
+                    html += '<div style="background:'+subBg+';border-radius:6px;padding:8px 12px;font-size:12px;">';
+                    html += '<span style="color:'+subColor+';font-weight:500;">'+sub.name+'</span>';
+                    html += '<span style="color:#6b7280;margin-left:4px;">('+sub.startDate+' ~ '+sub.endDate+')</span>';
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+        });
+        html += '</div>';
+        c.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderTools();renderFlowSteps();});
+    </script>
+</body>
+</html>
