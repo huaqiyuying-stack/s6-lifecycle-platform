@@ -199,10 +199,7 @@
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     知识库
                 </button>
-                <button class="nav-item" data-page="tools" onclick="switchPage('tools')">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    工具栈
-                </button>
+
             </nav>
         </aside>
 
@@ -211,7 +208,7 @@
                 <div class="card" style="text-align:center;padding:64px 32px;">
                     <div style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#3b82f6,#9333ea);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:#fff;font-size:36px;">📊</div>
                     <h1 style="font-size:28px;font-weight:700;margin-bottom:12px;">项目全生命周期档案平台</h1>
-                    <p style="font-size:16px;color:#6b7280;max-width:480px;margin:0 auto 32px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构、章程库与工具栈。</p>
+                    <p style="font-size:16px;color:#6b7280;max-width:480px;margin:0 auto 32px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。</p>
                     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
                         <button class="btn-ai" onclick="switchPage('iteration')">查看迭代分析</button>
                         <button class="btn-ai" style="background:#fff;color:#2563eb;border:1px solid #2563eb;" onclick="switchPage('team')">查看团队架构</button>
@@ -337,15 +334,7 @@
                 </div>
             </div>
 
-            <div id="page-tools" class="page fade-in">
-                <h2 class="section-title">流程与工具栈</h2>
-                <p style="font-size:14px;color:#4b5563;margin-bottom:24px;" id="workflow-info"></p>
-                <div class="grid-2" style="margin-bottom:24px;" id="tools-grid"></div>
-                <div class="card">
-                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">工作流类型</h3>
-                    <div class="flow-steps" id="flow-steps"></div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -815,7 +804,7 @@
         c.innerHTML = html;
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderTools();renderFlowSteps();renderQuickLinks();});
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
     </script>
 </body>
 </html>
