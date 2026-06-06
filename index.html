@@ -736,24 +736,26 @@
         ],
         milestones: [
             {phase:'运营期',startDate:'2023-03',endDate:'至今',status:'active',description:'正式运营阶段',subMilestones:[
-                {name:'1周年',startDate:'2023-03',endDate:'2024-03',status:'completed'},
-                {name:'2周年',startDate:'2024-04',endDate:'2025-03',status:'completed'},
-                {name:'3周年',startDate:'2025-04',endDate:'2026-03',status:'completed'},
-                {name:'4周年',startDate:'2026-04',endDate:'2027-03',status:'active'},
+                {name:'月版本包',startDate:'2023-03',endDate:'2023-12',status:'completed'},
+                {name:'封版节点',startDate:'2024-01',endDate:'2024-12',status:'completed'},
+                {name:'回归测试',startDate:'2025-01',endDate:'至今',status:'active'},
             ]},
-            {phase:'β期',startDate:'2021-10',endDate:'2023-01',status:'completed',description:'Beta阶段，多轮公开测试',subMilestones:[
-                {name:'PBT1',startDate:'2021-09',endDate:'2021-09',status:'completed'},
-                {name:'PBT2',startDate:'2022-01',endDate:'2022-03',status:'completed'},
-                {name:'PBT3',startDate:'2022-08',endDate:'2022-11',status:'completed'},
-                {name:'CBT',startDate:'2023-01',endDate:'2023-01',status:'completed'},
+            {phase:'β期',startDate:'2021-10',endDate:'2023-01',status:'completed',description:'面向部分公开测试',subMilestones:[
+                {name:'内测2',startDate:'2021-10',endDate:'2021-12',status:'completed'},
+                {name:'内测1',startDate:'2022-01',endDate:'2022-06',status:'completed'},
+                {name:'CBT2',startDate:'2022-07',endDate:'2022-09',status:'completed'},
+                {name:'CBT1',startDate:'2022-10',endDate:'2023-01',status:'completed'},
             ]},
-            {phase:'α期',startDate:'2020-03',endDate:'2021-09',status:'completed',description:'Alpha阶段，包含多轮内部测试',subMilestones:[
-                {name:'Alpha1',startDate:'2020-03',endDate:'2020-06',status:'completed'},
-                {name:'Alpha2',startDate:'2020-07',endDate:'2020-10',status:'completed'},
-                {name:'Alpha3',startDate:'2020-11',endDate:'2021-09',status:'completed'},
-                {name:'公司内测',startDate:'2021-07',endDate:'2021-07',status:'completed'},
+            {phase:'α期',startDate:'2020-03',endDate:'2021-09',status:'completed',description:'Alpha测试及内部调优阶段',subMilestones:[
+                {name:'Alpha测试',startDate:'2020-03',endDate:'2020-09',status:'completed'},
+                {name:'功能开发',startDate:'2020-10',endDate:'2021-03',status:'completed'},
+                {name:'压力测试',startDate:'2021-04',endDate:'2021-06',status:'completed'},
+                {name:'灰度测试',startDate:'2021-07',endDate:'2021-09',status:'completed'},
             ]},
-            {phase:'Demo期',startDate:'2019-11',endDate:'2020-02',status:'completed',description:'项目Demo阶段'},
+            {phase:'Demo期',startDate:'2019-11',endDate:'2020-02',status:'completed',description:'原型验证及核心玩法搭建',subMilestones:[
+                {name:'原型验证',startDate:'2019-11',endDate:'2019-12',status:'completed'},
+                {name:'核心玩法',startDate:'2020-01',endDate:'2020-02',status:'completed'},
+            ]},
         ],
         workflows: [
             {name:'缺陷默认工作流'},
