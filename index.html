@@ -205,59 +205,76 @@
 
         <div class="content">
             <div id="page-overview" class="page active fade-in">
-                <!-- 项目用户群 -->
-                <div class="card" style="padding: 20px 24px; margin-bottom: 16px;">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; border-radius: 6px; font-size: 13px; font-weight: 600;">第一批</span>
-                        <span style="font-size: 15px; font-weight: 600; color: #111827;">项目用户群</span>
+                <div class="card" style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;border:none;margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div style="display:flex;align-items:center;gap:16px;">
+                            <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;">🎮</div>
+                            <div>
+                                <div style="font-size:12px;opacity:0.8;margin-bottom:2px;">项目</div>
+                                <div style="font-size:20px;font-weight:700;">S6 & S6G</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:28px;font-weight:700;">6年</div>
+                            <div style="font-size:12px;opacity:0.8;">项目运行时长</div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- 主信息卡片 -->
-                <div class="card" style="padding: 40px 32px; text-align: center; margin-bottom: 16px;">
-                    <div style="width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, #7c3aed, #a855f7); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 28px; font-weight: 700;">档</div>
-                    <h1 style="font-size: 26px; font-weight: 700; margin-bottom: 16px;">项目全生命周期档案平台</h1>
-                    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;">
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">SLG/策略</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">大三国IP</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">公测中的三国策略手游</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">三国沙盘策略</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">大型多人在线SLG</span>
+                <div class="card" style="text-align:center;padding:48px 32px;margin-bottom:16px;">
+                    <h1 style="font-size:26px;font-weight:700;margin-bottom:8px;">项目全生命周期档案平台</h1>
+                    <p style="font-size:14px;color:#6b7280;max-width:480px;margin:0 auto 24px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。</p>
+                    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                        <button class="btn-ai" onclick="switchPage('iteration')">查看迭代分析</button>
+                        <button class="btn-ai" style="background:#fff;color:#2563eb;border:1px solid #2563eb;" onclick="switchPage('team')">查看团队架构</button>
                     </div>
-                    <p style="font-size: 14px; color: #6b7280; max-width: 520px; margin: 0 auto 20px; line-height: 1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。实时追踪项目进展与团队状态。</p>
-                    <a href="#" onclick="switchPage('iteration');return false;" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: #2563eb; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500;">
-                        查看详情
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </a>
                 </div>
-
-                <!-- 里程碑 -->
-                <div class="card" style="padding: 24px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        <h2 style="font-size: 16px; font-weight: 600;">里程碑</h2>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;">
+                    <div class="card" style="text-align:center;padding:20px;">
+                        <div style="font-size:28px;font-weight:700;color:#dc2626;">99</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">项目成员</div>
                     </div>
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="overview-milestones">
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">Demo期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2019-11 ~ 2020-02</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
+                    <div class="card" style="text-align:center;padding:20px;">
+                        <div style="font-size:28px;font-weight:700;color:#2563eb;">50</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">历史迭代</div>
+                    </div>
+                    <div class="card" style="text-align:center;padding:20px;">
+                        <div style="font-size:28px;font-weight:700;color:#16a34a;">14</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">工作流类型</div>
+                    </div>
+                    <div class="card" style="text-align:center;padding:20px;">
+                        <div style="font-size:28px;font-weight:700;color:#f59e0b;">76</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:4px;">常驻团队</div>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div class="card">
+                        <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;">项目信息</h3>
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span style="color:#6b7280;">项目ID</span>
+                                <span style="font-weight:500;">5e7c0d630a65123a62774816</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span style="color:#6b7280;">启动日期</span>
+                                <span style="font-weight:500;">2020-03-26</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span style="color:#6b7280;">业务线</span>
+                                <span style="font-weight:500;">S6 / S6G</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span style="color:#6b7280;">项目类型</span>
+                                <span style="font-weight:500;">游戏开发</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span style="color:#6b7280;">负责人</span>
+                                <span style="font-weight:500;">胡晋玉(嫤玉)</span>
+                            </div>
                         </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">α期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2020-03 ~ 2021-09</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
-                        </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">β期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2021-10 ~ 2023-01</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
-                        </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #2563eb;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">运营期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2023-03 ~ 至今</div>
-                            <div style="font-size: 12px; color: #2563eb; margin-top: 4px;">进行中</div>
-                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;">迭代完成趋势</h3>
+                        <div id="overview-mini-chart" style="height:160px;"></div>
                     </div>
                 </div>
             </div>
@@ -297,7 +314,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
                         <div>
                             <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">程序员工作饱和度</h2>
-                            <p style="font-size: 13px; color: #6b7280;">S6G-26年【6.4-6.17】迭代 功能开发人天统计（开发需求 + 技术需求）</p>
+                            <p style="font-size: 13px; color: #6b7280;">当前迭代功能开发人天统计（开发需求 + 技术需求）</p>
                         </div>
                         <span class="badge badge-green">数据来源: Teambition API</span>
                     </div>
@@ -323,8 +340,12 @@
                         </div>
                     </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #1d4ed8; display: inline-block;">总估时</h3>
+                    <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 1px;">
+                        <button class="sat-tab" onclick="switchSatTab('total')" id="sat-tab-total" style="padding: 10px 20px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 500; color: #1d4ed8; border-bottom: 2px solid #1d4ed8; margin-bottom: -1px;">总估时</button>
+                        <button class="sat-tab" onclick="switchSatTab('remain')" id="sat-tab-remain" style="padding: 10px 20px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 500; color: #6b7280; border-bottom: 2px solid transparent; margin-bottom: -1px;">剩余人天</button>
+                    </div>
+
+                    <div id="sat-panel-total">
                         <div class="grid-2">
                             <div>
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -383,8 +404,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-bottom: 24px;">
-                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; display: inline-block;">剩余人天</h3>
+                    <div id="sat-panel-remain" style="display: none;">
                         <div class="grid-2">
                             <div>
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -874,6 +894,18 @@
         svg+='</svg>';c.innerHTML=svg;
     }
 
+    function renderOverviewMiniChart(){
+        const c=document.getElementById('overview-mini-chart');if(!c)return;
+        const md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
+        const ms=Object.keys(md).sort();if(!ms.length){c.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px 0;font-size:12px;">暂无数据</p>';return;}
+        const vs=ms.map(m=>md[m]),mx=Math.max(...vs),W=c.offsetWidth||300,H=140,P=30;
+        let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+        const pts=vs.map((v,i)=>({x:P+(W-P-10)*(i/(vs.length-1||1)),y:H-20-(H-40)*(v/(mx||1))}));
+        if(pts.length>1){svg+='<path d="M'+pts[0].x+','+(H-20)+' L'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+' L'+pts[pts.length-1].x+','+(H-20)+' Z" fill="#3b82f6" fill-opacity="0.1"/>';svg+='<path d="M'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+'" fill="none" stroke="#3b82f6" stroke-width="2"/>';}
+        pts.forEach((p,i)=>{svg+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="3" fill="#3b82f6"/>';if(i%Math.ceil(ms.length/6)===0||i===ms.length-1)svg+='<text x="'+p.x.toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" font-size="9" fill="#6b7280">'+ms[i].substring(2)+'</text>';});
+        svg+='</svg>';c.innerHTML=svg;
+    }
+
     function renderSprintTimeline(){
         const milestones = tbData.milestones;
         document.getElementById('sprint-stats').innerHTML = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
@@ -1044,7 +1076,16 @@
         c.innerHTML = html;
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
+    function switchSatTab(mode) {
+        document.getElementById('sat-panel-total').style.display = mode === 'total' ? 'block' : 'none';
+        document.getElementById('sat-panel-remain').style.display = mode === 'remain' ? 'block' : 'none';
+        document.getElementById('sat-tab-total').style.color = mode === 'total' ? '#1d4ed8' : '#6b7280';
+        document.getElementById('sat-tab-total').style.borderBottomColor = mode === 'total' ? '#1d4ed8' : 'transparent';
+        document.getElementById('sat-tab-remain').style.color = mode === 'remain' ? '#1d4ed8' : '#6b7280';
+        document.getElementById('sat-tab-remain').style.borderBottomColor = mode === 'remain' ? '#1d4ed8' : 'transparent';
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderOverviewMiniChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
     </script>
 </body>
 </html>
