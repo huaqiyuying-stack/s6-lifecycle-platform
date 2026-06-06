@@ -620,8 +620,8 @@
     function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 
     function renderStatCards(){
-        const p=tbData.project,mc=tbData.members.length,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length,y=Math.floor((Date.now()-new Date(p.startDate).getTime())/31536000000);
-        document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-value">'+mc+'人</div><div class="stat-label">团队成员</div><div class="stat-sub">1负责人 2管理员</div></div><div class="stat-card"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-value">'+sc+'</div><div class="stat-label">迭代总数</div><div class="stat-sub">'+ds+' 已完成</div></div><div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><div class="stat-value">'+y+'年</div><div class="stat-label">项目运行</div><div class="stat-sub">'+p.startDate+' 起</div></div>';
+        const p=tbData.project,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length,y=Math.floor((Date.now()-new Date(p.startDate).getTime())/31536000000);
+        document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-value">'+sc+'</div><div class="stat-label">迭代总数</div><div class="stat-sub">'+ds+' 已完成</div></div><div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><div class="stat-value">'+y+'年</div><div class="stat-label">项目运行</div><div class="stat-sub">'+p.startDate+' 起</div></div>';
     }
 
     function renderProjectInfo(){
@@ -630,7 +630,7 @@
     }
 
     function renderOverviewTasks(){
-        document.getElementById('overview-tasks').innerHTML='<a href="https://alidocs.dingtalk.com/i/teams/nb9XJNBry0bgXyAp/overview" target="_blank" style="text-decoration:none;display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow=\'0 4px 12px rgba(0,0,0,0.08)\'" onmouseout="this.style.boxShadow=\'none\'"><div style="display:flex;align-items:center;gap:16px;"><div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1677ff,#722ed1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;">📚</div><div style="flex:1;"><h3 style="font-size:16px;font-weight:600;color:#111827;margin:0;">S6/S6G 钉钉知识库</h3><p style="font-size:13px;color:#6b7280;margin-top:6px;line-height:1.5;">项目文档、策划案、技术方案、美术资源等资料汇总</p></div><div style="color:#2563eb;font-size:14px;font-weight:500;white-space:nowrap;">进入知识库 →</div></div></a>';
+        document.getElementById('overview-tasks').innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
     }
 
     function renderAreaChart(){
