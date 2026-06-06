@@ -770,7 +770,8 @@
     function renderSprintTimeline(){
         const milestones = tbData.milestones;
         const statsHtml = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
-        document.getElementById('sprint-stats').innerHTML = statsHtml;
+        const sprintStats = document.getElementById('sprint-stats');
+        if(sprintStats) sprintStats.innerHTML = statsHtml;
         const oStats = document.getElementById('overview-sprint-stats');
         if(oStats) oStats.innerHTML = statsHtml;
         const timelineHtml = milestones.map(phase=>{
@@ -790,7 +791,8 @@
             html += '</div></div>';
             return html;
         }).join('');
-        document.getElementById('sprint-timeline').innerHTML = timelineHtml;
+        const sprintTimeline = document.getElementById('sprint-timeline');
+        if(sprintTimeline) sprintTimeline.innerHTML = timelineHtml;
         const oTimeline = document.getElementById('overview-sprint-timeline');
         if(oTimeline) oTimeline.innerHTML = timelineHtml;
     }
@@ -804,13 +806,16 @@
         });
         const totalUnique = m.length;
         let statsHtml = '<div class="team-stat-card team-stat-gradient"><p style="font-size:13px;opacity:0.8;">常驻团队人数</p><p style="font-size:36px;font-weight:700;margin-top:8px;">'+totalUnique+'</p><p style="font-size:13px;opacity:0.8;margin-top:8px;">来自钉钉文档常驻人员名单</p></div>';
-        document.getElementById('team-stats').innerHTML = statsHtml;
+        const teamStats = document.getElementById('team-stats');
+        if(teamStats) teamStats.innerHTML = statsHtml;
     }
 
     function renderTeamTimelineChart(){}
 
     function renderPieChart(){
-        const c=document.getElementById('team-pie-chart'),m=tbData.members;
+        const c=document.getElementById('team-pie-chart');
+        if(!c) return;
+        const m=tbData.members;
         const deptCount = {};
         m.forEach(member => {
             if(!deptCount[member.dept]) deptCount[member.dept] = 0;
@@ -833,7 +838,9 @@
             if(idxA !== idxB) return idxA - idxB;
             return a.name.localeCompare(b.name, 'zh');
         });
-        document.getElementById('members-table').innerHTML=
+        const membersTable = document.getElementById('members-table');
+        if(!membersTable) return;
+        membersTable.innerHTML=
             '<thead><tr><th style="width:50px;">序号</th><th style="width:120px;">职能组</th><th>姓名</th></tr></thead><tbody>'+
             sorted.map((member,i)=>{
                 const colorClass = deptBadgeMap[member.dept] || 'badge-gray';
