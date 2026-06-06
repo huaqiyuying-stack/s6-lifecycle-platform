@@ -259,7 +259,7 @@
                         里程碑
                     </h3>
                     <div class="card" style="margin-bottom:16px;">
-                        <div id="milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
+                        <div id="overview-milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
                     </div>
                     <div class="grid-4" style="margin-bottom:16px;" id="overview-sprint-stats"></div>
                     <div style="max-height:600px;overflow-y:auto;">
@@ -849,11 +849,12 @@
     }
 
     function renderOverviewTasks(){
-        document.getElementById('overview-tasks').innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
+        const el=document.getElementById('overview-tasks');if(el)el.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
     }
 
     function renderAreaChart(){
-        const c=document.getElementById('overview-chart'),md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
+        const c=document.getElementById('overview-chart');if(!c)return;
+        const md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
         const ms=Object.keys(md).sort();if(!ms.length){c.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无数据</p>';return;}
         const vs=ms.map(m=>md[m]),mx=Math.max(...vs),W=c.offsetWidth||500,H=200,P=40;
         let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+(H+30)+'">';
@@ -966,7 +967,6 @@
 
     function renderMilestoneTimeline(){
         const milestones = tbData.milestones;
-        const c = document.getElementById('milestone-timeline-visual');
         let html = '<div style="min-width:800px;padding:20px 40px;position:relative;">';
         html += '<div style="position:relative;height:120px;margin-bottom:40px;">';
         html += '<div style="position:absolute;top:50px;left:0;right:0;height:3px;background:#e5e7eb;border-radius:2px;"></div>';
@@ -1010,7 +1010,10 @@
             html += '</div>';
         });
         html += '</div>';
-        c.innerHTML = html;
+        const c1 = document.getElementById('milestone-timeline-visual');
+        if(c1) c1.innerHTML = html;
+        const c2 = document.getElementById('overview-milestone-timeline-visual');
+        if(c2) c2.innerHTML = html;
     }
 
     const quickLinksData = [
