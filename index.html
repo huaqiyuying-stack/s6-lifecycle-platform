@@ -199,10 +199,7 @@
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     知识库
                 </button>
-                <button class="nav-item" data-page="tools" onclick="switchPage('tools')">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    工具栈
-                </button>
+
             </nav>
         </aside>
 
@@ -211,7 +208,7 @@
                 <div class="card" style="text-align:center;padding:64px 32px;">
                     <div style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#3b82f6,#9333ea);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:#fff;font-size:36px;">📊</div>
                     <h1 style="font-size:28px;font-weight:700;margin-bottom:12px;">项目全生命周期档案平台</h1>
-                    <p style="font-size:16px;color:#6b7280;max-width:480px;margin:0 auto 32px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构、章程库与工具栈。</p>
+                    <p style="font-size:16px;color:#6b7280;max-width:480px;margin:0 auto 32px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。</p>
                     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
                         <button class="btn-ai" onclick="switchPage('iteration')">查看迭代分析</button>
                         <button class="btn-ai" style="background:#fff;color:#2563eb;border:1px solid #2563eb;" onclick="switchPage('team')">查看团队架构</button>
@@ -512,21 +509,35 @@
                                 </h3>
                                 <span style="font-size:11px;color:#9ca3af;background:#f3f4f6;padding:2px 8px;border-radius:10px;">按热度排序</span>
                             </div>
-                            <div id="quick-links"></div>
+                            <div id="quick-links">
+                                <a href="https://alidocs.dingtalk.com/i/nodes/od245kZmnOeW4vzPqnREJYbzxL6R0wMQ" target="_blank" class="quick-link-item" onclick="trackKbClick('newcomer','新人入组')">
+                                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;">👋</div>
+                                    <div class="quick-link-info">
+                                        <div class="quick-link-title">新人入组</div>
+                                        <div class="quick-link-desc">新成员入职指南与资料</div>
+                                    </div>
+                                </a>
+                                <a href="https://alidocs.dingtalk.com/i/spaces/nb9XJLQLaMlKPGyA/overview" target="_blank" class="quick-link-item" onclick="trackKbClick('dev-process','开发流程&规范')">
+                                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;">⚙️</div>
+                                    <div class="quick-link-info">
+                                        <div class="quick-link-title">开发流程&规范</div>
+                                        <div class="quick-link-desc">S6&S6G 开发标准与流程</div>
+                                    </div>
+                                </a>
+                                <a href="https://alidocs.dingtalk.com/i/spaces/nb9XJLg2r4DLaGyA/overview" target="_blank" class="quick-link-item" onclick="trackKbClick('ops-line','研发&运营维护线')">
+                                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;">🚀</div>
+                                    <div class="quick-link-info">
+                                        <div class="quick-link-title">研发&运营维护线</div>
+                                        <div class="quick-link-desc">研发运营维护相关文档</div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="page-tools" class="page fade-in">
-                <h2 class="section-title">流程与工具栈</h2>
-                <p style="font-size:14px;color:#4b5563;margin-bottom:24px;" id="workflow-info"></p>
-                <div class="grid-2" style="margin-bottom:24px;" id="tools-grid"></div>
-                <div class="card">
-                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">工作流类型</h3>
-                    <div class="flow-steps" id="flow-steps"></div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -801,8 +812,8 @@
     function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 
     function renderStatCards(){
-        const p=tbData.project,mc=tbData.members.length,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length,y=Math.floor((Date.now()-new Date(p.startDate).getTime())/31536000000);
-        document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-value">'+mc+'人</div><div class="stat-label">团队成员</div><div class="stat-sub">1负责人 2管理员</div></div><div class="stat-card"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-value">'+sc+'</div><div class="stat-label">迭代总数</div><div class="stat-sub">'+ds+' 已完成</div></div><div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><div class="stat-value">'+y+'年</div><div class="stat-label">项目运行</div><div class="stat-sub">'+p.startDate+' 起</div></div>';
+        const p=tbData.project,sc=tbData.sprints.length,ds=tbData.sprints.filter(s=>s.status==='complete').length,y=Math.floor((Date.now()-new Date(p.startDate).getTime())/31536000000);
+        document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-value">'+sc+'</div><div class="stat-label">迭代总数</div><div class="stat-sub">'+ds+' 已完成</div></div><div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><div class="stat-value">'+y+'年</div><div class="stat-label">项目运行</div><div class="stat-sub">'+p.startDate+' 起</div></div>';
     }
 
     function renderProjectInfo(){
@@ -811,7 +822,7 @@
     }
 
     function renderOverviewTasks(){
-        document.getElementById('overview-tasks').innerHTML='<a href="https://alidocs.dingtalk.com/i/teams/nb9XJNBry0bgXyAp/overview" target="_blank" style="text-decoration:none;display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow=\'0 4px 12px rgba(0,0,0,0.08)\'" onmouseout="this.style.boxShadow=\'none\'"><div style="display:flex;align-items:center;gap:16px;"><div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1677ff,#722ed1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;">📚</div><div style="flex:1;"><h3 style="font-size:16px;font-weight:600;color:#111827;margin:0;">S6/S6G 钉钉知识库</h3><p style="font-size:13px;color:#6b7280;margin-top:6px;line-height:1.5;">项目文档、策划案、技术方案、美术资源等资料汇总</p></div><div style="color:#2563eb;font-size:14px;font-weight:500;white-space:nowrap;">进入知识库 →</div></div></a>';
+        document.getElementById('overview-tasks').innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
     }
 
     function renderAreaChart(){
@@ -1005,7 +1016,7 @@
         document.getElementById('sat-tab-remain').style.borderBottomColor = mode === 'remain' ? '#1d4ed8' : 'transparent';
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderTools();renderFlowSteps();renderQuickLinks();});
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
     </script>
 </body>
 </html>
