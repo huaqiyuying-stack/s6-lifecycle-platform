@@ -206,7 +206,7 @@
         <div class="content">
             <div id="page-overview" class="page active fade-in">
                 <div class="card" style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;border:none;margin-bottom:16px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
                         <div style="display:flex;align-items:center;gap:16px;">
                             <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;">🎮</div>
                             <div>
@@ -219,49 +219,51 @@
                             <div style="font-size:12px;opacity:0.8;">项目运行时长</div>
                         </div>
                     </div>
-                </div>
-                <div class="card" style="text-align:center;padding:40px 32px;margin-bottom:16px;">
-                    <div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:#fff;font-size:28px;font-weight:700;">档</div>
-                    <h1 style="font-size:26px;font-weight:700;margin-bottom:16px;">项目全生命周期档案平台</h1>
-                    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
-                        <span style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#dc2626;border-radius:4px;font-size:12px;font-weight:500;">SLG/策略</span>
-                        <span style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#dc2626;border-radius:4px;font-size:12px;font-weight:500;">大三国IP</span>
-                        <span style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#dc2626;border-radius:4px;font-size:12px;font-weight:500;">公测中的三国策略手游</span>
-                        <span style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#dc2626;border-radius:4px;font-size:12px;font-weight:500;">三国沙盘策略</span>
-                        <span style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#dc2626;border-radius:4px;font-size:12px;font-weight:500;">大型多人在线SLG</span>
+                    <div style="border-top:1px solid rgba(255,255,255,0.2);padding-top:12px;">
+                        <div style="font-size:13px;line-height:1.6;">
+                            <div><strong>游戏类型：</strong>一款具备三国志正版授权IP的SLG策略手游</div>
+                            <div style="margin-top:4px;"><strong>玩法特色：</strong>大世界探索、战棋战斗、大型GVG国战玩法等</div>
+                        </div>
                     </div>
-                    <p style="font-size:14px;color:#6b7280;max-width:520px;margin:0 auto 20px;line-height:1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。实时追踪项目进展与团队状态。</p>
-                    <a href="#" onclick="switchPage('iteration');return false;" style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#2563eb;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
-                        查看详情
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </a>
                 </div>
-                <div class="card" style="padding:24px;">
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                <div class="card" style="margin-bottom:16px;">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        常驻团队
+                    </h3>
+                    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;">👥</div>
+                        <div>
+                            <div style="font-size:28px;font-weight:700;">76<span style="font-size:14px;color:#6b7280;font-weight:400;">人</span></div>
+                            <div style="font-size:13px;color:#6b7280;">12个职能组</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <span class="badge badge-red">制作人 1</span>
+                        <span class="badge badge-blue">策划 17</span>
+                        <span class="badge badge-green">客户端 13</span>
+                        <span class="badge badge-cyan">服务器 9</span>
+                        <span class="badge badge-purple">QA 15</span>
+                        <span class="badge badge-pink">美术 3</span>
+                        <span class="badge badge-orange">UE 3</span>
+                        <span class="badge badge-indigo">GUI 4</span>
+                        <span class="badge badge-teal">动效 2</span>
+                        <span class="badge badge-amber">输出 3</span>
+                        <span class="badge badge-violet">PM 3</span>
+                        <span class="badge badge-lime">本地化 3</span>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom:16px;">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        <h2 style="font-size:16px;font-weight:600;">里程碑</h2>
+                        里程碑
+                    </h3>
+                    <div class="card" style="margin-bottom:16px;">
+                        <div id="milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
                     </div>
-                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                        <div style="flex:1;min-width:200px;padding:16px;background:#f9fafb;border-radius:8px;border-left:3px solid #16a34a;">
-                            <div style="font-size:12px;color:#6b7280;margin-bottom:4px;">Demo期</div>
-                            <div style="font-size:14px;font-weight:600;">2019-11 ~ 2020-02</div>
-                            <div style="font-size:12px;color:#16a34a;margin-top:4px;">已完成</div>
-                        </div>
-                        <div style="flex:1;min-width:200px;padding:16px;background:#f9fafb;border-radius:8px;border-left:3px solid #16a34a;">
-                            <div style="font-size:12px;color:#6b7280;margin-bottom:4px;">α期</div>
-                            <div style="font-size:14px;font-weight:600;">2020-03 ~ 2021-09</div>
-                            <div style="font-size:12px;color:#16a34a;margin-top:4px;">已完成</div>
-                        </div>
-                        <div style="flex:1;min-width:200px;padding:16px;background:#f9fafb;border-radius:8px;border-left:3px solid #16a34a;">
-                            <div style="font-size:12px;color:#6b7280;margin-bottom:4px;">β期</div>
-                            <div style="font-size:14px;font-weight:600;">2021-10 ~ 2023-01</div>
-                            <div style="font-size:12px;color:#16a34a;margin-top:4px;">已完成</div>
-                        </div>
-                        <div style="flex:1;min-width:200px;padding:16px;background:#f9fafb;border-radius:8px;border-left:3px solid #2563eb;">
-                            <div style="font-size:12px;color:#6b7280;margin-bottom:4px;">运营期</div>
-                            <div style="font-size:14px;font-weight:600;">2023-03 ~ 至今</div>
-                            <div style="font-size:12px;color:#2563eb;margin-top:4px;">进行中</div>
-                        </div>
+                    <div class="grid-4" style="margin-bottom:16px;" id="overview-sprint-stats"></div>
+                    <div style="max-height:600px;overflow-y:auto;">
+                        <div class="timeline" id="overview-sprint-timeline"></div>
                     </div>
                 </div>
             </div>
@@ -895,9 +897,11 @@
 
     function renderSprintTimeline(){
         const milestones = tbData.milestones;
-        document.getElementById('sprint-stats').innerHTML = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
-        const c=document.getElementById('sprint-timeline');
-        c.innerHTML=milestones.map(phase=>{
+        const statsHtml = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
+        document.getElementById('sprint-stats').innerHTML = statsHtml;
+        const oStats = document.getElementById('overview-sprint-stats');
+        if(oStats) oStats.innerHTML = statsHtml;
+        const timelineHtml = milestones.map(phase=>{
             const icon = phase.status==='completed'?'✓':phase.status==='active'?'◉':'◷';
             const dotClass = phase.status==='completed'?'completed':phase.status==='active'?'planned':'planned';
             const badge = phase.status==='completed'?'<span class="badge badge-green">已完成</span>':phase.status==='active'?'<span class="badge badge-blue">运营中</span>':'<span class="badge badge-yellow">规划中</span>';
@@ -914,6 +918,9 @@
             html += '</div></div>';
             return html;
         }).join('');
+        document.getElementById('sprint-timeline').innerHTML = timelineHtml;
+        const oTimeline = document.getElementById('overview-sprint-timeline');
+        if(oTimeline) oTimeline.innerHTML = timelineHtml;
     }
 
     function renderTeamStats(){
