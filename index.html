@@ -301,13 +301,13 @@
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 24px;">
-                        <div>
+                        <div id="sat-client-wrap">
                             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                                 <span style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6;"></span>
                                 <h3 style="font-size: 16px; font-weight: 600;">客户端</h3>
                             </div>
                             <div style="background: #f9fafb; border-radius: 8px; padding: 12px; overflow-x: auto;">
-                                <table style="font-size: 12px; white-space: nowrap;">
+                                <table id="sat-client-table" style="font-size: 12px; white-space: nowrap;">
                                     <thead>
                                         <tr><th style="padding: 6px 8px;">姓名</th><th style="padding: 6px 8px; text-align: right;">总估时</th><th style="padding: 6px 8px; text-align: right;">开发需求</th><th style="padding: 6px 8px; text-align: right;">技术需求</th><th style="padding: 6px 8px; text-align: right;">剩余人天</th><th style="padding: 6px 8px; text-align: right;">剩余开发</th><th style="padding: 6px 8px; text-align: right;">剩余技术</th></tr>
                                     </thead>
@@ -327,13 +327,13 @@
                                 </table>
                             </div>
                         </div>
-                        <div>
+                        <div id="sat-server-wrap">
                             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                                 <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
                                 <h3 style="font-size: 16px; font-weight: 600;">服务器</h3>
                             </div>
                             <div style="background: #f9fafb; border-radius: 8px; padding: 12px; overflow-x: auto;">
-                                <table style="font-size: 12px; white-space: nowrap;">
+                                <table id="sat-server-table" style="font-size: 12px; white-space: nowrap;">
                                     <thead>
                                         <tr><th style="padding: 6px 8px;">姓名</th><th style="padding: 6px 8px; text-align: right;">总估时</th><th style="padding: 6px 8px; text-align: right;">开发需求</th><th style="padding: 6px 8px; text-align: right;">技术需求</th><th style="padding: 6px 8px; text-align: right;">剩余人天</th><th style="padding: 6px 8px; text-align: right;">剩余开发</th><th style="padding: 6px 8px; text-align: right;">剩余技术</th></tr>
                                     </thead>
@@ -944,7 +944,114 @@
         c.innerHTML = html;
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
+    function getWorkDaysBetween(startDate, endDate) {
+        let count = 0;
+        const d = new Date(startDate);
+        while (d < endDate) {
+            const day = d.getDay();
+            if (day !== 0 && day !== 6) count++;
+            d.setDate(d.getDate() + 1);
+        }
+        return count;
+    }
+
+    function getIterationInfo(currentDate) {
+        const baseVersion = new Date('2026-06-17');
+        const cycleMs = 14 * 24 * 60 * 60 * 1000;
+        const diffMs = currentDate - baseVersion;
+        const cycles = Math.round(diffMs / cycleMs);
+        const versionDate = new Date(baseVersion.getTime() + cycles * cycleMs);
+        const lockDate = new Date(versionDate);
+        lockDate.setDate(lockDate.getDate() - 14);
+        const testDate = new Date(versionDate);
+        testDate.setDate(testDate.getDate() - 7);
+        const bufferEnd = new Date(testDate);
+        bufferEnd.setDate(bufferEnd.getDate() + 2);
+        const testStart = new Date(versionDate);
+        testStart.setDate(testStart.getDate() - 3);
+        while (testStart.getDay() === 0 || testStart.getDay() === 6) {
+            testStart.setDate(testStart.getDate() + 1);
+        }
+        return { versionDate, lockDate, testDate, bufferEnd, testStart };
+    }
+
+    function calcSaturation(currentDate, info, totalEstimate, remainingDev, remainingTech) {
+        const remainingTotal = remainingDev + remainingTech;
+        const fmt = (n) => n.toFixed(1);
+
+        if (currentDate >= info.testStart && currentDate <= info.versionDate) {
+            return remainingTotal > 0
+                ? { label: '超饱和', color: '#dc2626', detail: `剩余 ${fmt(remainingTotal)} d` }
+                : { label: '正常', color: '#16a34a', detail: '' };
+        }
+
+        if (currentDate > info.testDate) {
+            const availableDays = getWorkDaysBetween(currentDate, info.versionDate);
+            if (remainingTotal <= availableDays) {
+                return { label: '微饱和', color: '#f59e0b', detail: `可用 ${availableDays} d` };
+            } else {
+                return { label: '超饱和', color: '#dc2626', detail: `超 ${fmt(remainingTotal - availableDays)} d` };
+            }
+        }
+
+        if (currentDate >= info.lockDate && currentDate < info.testDate) {
+            const availableDays = getWorkDaysBetween(currentDate, info.testDate);
+            if (remainingTotal < availableDays) {
+                return { label: '空闲', color: '#2563eb', detail: `空闲 ${fmt(availableDays - remainingTotal)} d` };
+            } else if (Math.abs(remainingTotal - availableDays) < 0.01) {
+                return { label: '正常', color: '#16a34a', detail: '' };
+            } else {
+                return { label: '趋饱和', color: '#f59e0b', detail: `超 ${fmt(remainingTotal - availableDays)} d` };
+            }
+        }
+
+        if (totalEstimate < 5) {
+            return { label: '空闲', color: '#2563eb', detail: `可接 ${fmt(5 - totalEstimate)} d` };
+        }
+        return { label: '正常', color: '#16a34a', detail: '' };
+    }
+
+    function renderSaturation() {
+        const now = new Date();
+        const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const info = getIterationInfo(currentDate);
+
+        ['sat-client-table', 'sat-server-table'].forEach((tableId) => {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+
+            const headerRow = table.querySelector('thead tr');
+            const th = document.createElement('th');
+            th.style.cssText = 'padding: 6px 8px; text-align: center; min-width: 80px;';
+            th.textContent = '饱和度';
+            headerRow.appendChild(th);
+
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach((row) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length < 7) return;
+                const totalEstimate = parseFloat(cells[1].textContent) || 0;
+                const remainingDev = parseFloat(cells[5].textContent) || 0;
+                const remainingTech = parseFloat(cells[6].textContent) || 0;
+
+                const status = calcSaturation(currentDate, info, totalEstimate, remainingDev, remainingTech);
+
+                const td = document.createElement('td');
+                td.style.cssText = 'padding: 6px 8px; text-align: center;';
+                td.innerHTML = '<span style="display:inline-block;padding:2px 8px;border-radius:4px;background:' + status.color + ';color:#fff;font-size:11px;font-weight:500;white-space:nowrap;">' + status.label + '</span>' + (status.detail ? '<div style="font-size:10px;color:#6b7280;margin-top:2px;">' + status.detail + '</div>' : '');
+                row.appendChild(td);
+            });
+
+            const footerRow = table.querySelector('tfoot tr');
+            if (footerRow) {
+                const td = document.createElement('td');
+                td.style.cssText = 'padding: 6px 8px;';
+                footerRow.appendChild(td);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();renderSaturation();});
     </script>
 </body>
 </html>
