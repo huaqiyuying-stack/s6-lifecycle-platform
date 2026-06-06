@@ -121,6 +121,18 @@
         .link-btn { background: none; border: none; color: #2563eb; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 4px; }
         .link-btn:hover { color: #1d4ed8; }
         .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .kb-main-card { display: block; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 32px; transition: box-shadow 0.2s; text-decoration: none; }
+        .kb-main-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .kb-cat-card { transition: all 0.2s; }
+        .kb-cat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .quick-link-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; border: 1px solid transparent; }
+        .quick-link-item:hover { background: #f9fafb; border-color: #e5e7eb; }
+        .quick-link-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .quick-link-info { flex: 1; min-width: 0; }
+        .quick-link-title { font-size: 13px; font-weight: 500; color: #111827; }
+        .quick-link-desc { font-size: 11px; color: #6b7280; margin-top: 2px; }
+        .quick-link-count { font-size: 11px; color: #9ca3af; background: #f3f4f6; padding: 2px 6px; border-radius: 10px; }
+        .quick-link-hot { font-size: 10px; color: #dc2626; background: #fee2e2; padding: 2px 6px; border-radius: 10px; font-weight: 500; }
         .card-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .charter-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 16px; }
         .charter-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
@@ -280,31 +292,47 @@
 
             <div id="page-charters" class="page fade-in">
                 <h2 class="section-title">S6/S6G 钉钉知识库</h2>
-                <a href="https://alidocs.dingtalk.com/i/teams/nb9XJNBry0bgXyAp/overview" target="_blank" style="text-decoration:none;display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:32px;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
-                    <div style="display:flex;align-items:center;gap:20px;">
-                        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#1677ff,#722ed1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;">📚</div>
-                        <div style="flex:1;">
-                            <h3 style="font-size:18px;font-weight:600;color:#111827;margin:0;">S6/S6G 项目知识库</h3>
-                            <p style="font-size:14px;color:#6b7280;margin-top:8px;line-height:1.6;">项目文档、策划案、技术方案、美术资源、会议纪要等资料汇总</p>
+                <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;">
+                    <div>
+                        <a id="kb-main-link" href="https://alidocs.dingtalk.com/i/teams/nb9XJNBry0bgXyAp/overview" target="_blank" class="kb-main-card" onclick="trackKbClick('main','S6/S6G 项目知识库')">
+                            <div style="display:flex;align-items:center;gap:20px;">
+                                <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#1677ff,#722ed1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;">📚</div>
+                                <div style="flex:1;">
+                                    <h3 style="font-size:18px;font-weight:600;color:#111827;margin:0;">S6/S6G 项目知识库</h3>
+                                    <p style="font-size:14px;color:#6b7280;margin-top:8px;line-height:1.6;">项目文档、策划案、技术方案、美术资源、会议纪要等资料汇总</p>
+                                </div>
+                                <div style="color:#2563eb;font-size:14px;font-weight:500;white-space:nowrap;">进入知识库 →</div>
+                            </div>
+                        </a>
+                        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+                            <div class="card kb-cat-card" onclick="trackKbClick('main','策划文档')" style="text-align:center;padding:20px;cursor:pointer;">
+                                <div style="font-size:26px;margin-bottom:6px;">📝</div>
+                                <h4 style="font-size:13px;font-weight:600;">策划文档</h4>
+                                <p style="font-size:11px;color:#6b7280;margin-top:4px;">需求案、配置单、设计文档</p>
+                            </div>
+                            <div class="card kb-cat-card" onclick="trackKbClick('main','技术方案')" style="text-align:center;padding:20px;cursor:pointer;">
+                                <div style="font-size:26px;margin-bottom:6px;">💻</div>
+                                <h4 style="font-size:13px;font-weight:600;">技术方案</h4>
+                                <p style="font-size:11px;color:#6b7280;margin-top:4px;">客户端、服务器、架构设计</p>
+                            </div>
+                            <div class="card kb-cat-card" onclick="trackKbClick('main','美术资源')" style="text-align:center;padding:20px;cursor:pointer;">
+                                <div style="font-size:26px;margin-bottom:6px;">🎨</div>
+                                <h4 style="font-size:13px;font-weight:600;">美术资源</h4>
+                                <p style="font-size:11px;color:#6b7280;margin-top:4px;">原画、UI、动效、模型</p>
+                            </div>
                         </div>
-                        <div style="color:#2563eb;font-size:14px;font-weight:500;white-space:nowrap;">进入知识库 →</div>
                     </div>
-                </a>
-                <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-                    <div class="card" style="text-align:center;padding:24px;">
-                        <div style="font-size:28px;margin-bottom:8px;">📝</div>
-                        <h4 style="font-size:14px;font-weight:600;">策划文档</h4>
-                        <p style="font-size:12px;color:#6b7280;margin-top:4px;">需求案、配置单、设计文档</p>
-                    </div>
-                    <div class="card" style="text-align:center;padding:24px;">
-                        <div style="font-size:28px;margin-bottom:8px;">💻</div>
-                        <h4 style="font-size:14px;font-weight:600;">技术方案</h4>
-                        <p style="font-size:12px;color:#6b7280;margin-top:4px;">客户端、服务器、架构设计</p>
-                    </div>
-                    <div class="card" style="text-align:center;padding:24px;">
-                        <div style="font-size:28px;margin-bottom:8px;">🎨</div>
-                        <h4 style="font-size:14px;font-weight:600;">美术资源</h4>
-                        <p style="font-size:12px;color:#6b7280;margin-top:4px;">原画、UI、动效、模型</p>
+                    <div>
+                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px;height:fit-content;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                                <h3 style="font-size:15px;font-weight:600;display:flex;align-items:center;gap:6px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                    快捷入口
+                                </h3>
+                                <span style="font-size:11px;color:#9ca3af;background:#f3f4f6;padding:2px 8px;border-radius:10px;">按热度排序</span>
+                            </div>
+                            <div id="quick-links"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -749,7 +777,45 @@
         c.innerHTML = html;
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderTools();renderFlowSteps();});
+    const quickLinksData = [
+        { id: 'newcomer', title: '新人入组', desc: '新成员入职指南与资料', url: 'https://alidocs.dingtalk.com/i/nodes/od245kZmnOeW4vzPqnREJYbzxL6R0wMQ', icon: '👋', color: 'linear-gradient(135deg,#10b981,#059669)' },
+        { id: 'dev-process', title: '开发流程&规范', desc: 'S6&S6G 开发标准与流程', url: 'https://alidocs.dingtalk.com/i/spaces/nb9XJLQLaMlKPGyA/overview', icon: '⚙️', color: 'linear-gradient(135deg,#3b82f6,#2563eb)' },
+        { id: 'ops-line', title: '研发&运营维护线', desc: '研发运营维护相关文档', url: 'https://alidocs.dingtalk.com/i/spaces/nb9XJLg2r4DLaGyA/overview', icon: '🚀', color: 'linear-gradient(135deg,#f59e0b,#d97706)' }
+    ];
+
+    function trackKbClick(id,label) {
+        const key = 'kb_clicks_v1';
+        let data = JSON.parse(localStorage.getItem(key) || '{}');
+        data[id] = (data[id] || 0) + 1;
+        localStorage.setItem(key, JSON.stringify(data));
+        renderQuickLinks();
+    }
+
+    function renderQuickLinks() {
+        const c = document.getElementById('quick-links');
+        if (!c) return;
+        const key = 'kb_clicks_v1';
+        const clickData = JSON.parse(localStorage.getItem(key) || '{}');
+        const sorted = [...quickLinksData].sort((a,b)=> (clickData[b.id]||0) - (clickData[a.id]||0));
+        const maxClicks = Math.max(...sorted.map(l=>clickData[l.id]||0));
+        let html = '';
+        sorted.forEach((link,idx)=>{
+            const count = clickData[link.id] || 0;
+            const isHot = count > 0 && count === maxClicks;
+            html += '<a href="'+link.url+'" target="_blank" class="quick-link-item" onclick="trackKbClick(\''+link.id+'\',\''+link.title+'\')">';
+            html += '<div class="quick-link-icon" style="background:'+link.color+';color:#fff;">'+link.icon+'</div>';
+            html += '<div class="quick-link-info">';
+            html += '<div class="quick-link-title">'+link.title+'</div>';
+            html += '<div class="quick-link-desc">'+link.desc+'</div>';
+            html += '</div>';
+            if (isHot) html += '<span class="quick-link-hot">🔥 热点</span>';
+            else if (count > 0) html += '<span class="quick-link-count">'+count+'</span>';
+            html += '</a>';
+        });
+        c.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderTools();renderFlowSteps();renderQuickLinks();});
     </script>
 </body>
 </html>
