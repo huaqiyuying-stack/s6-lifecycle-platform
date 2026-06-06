@@ -187,14 +187,6 @@
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                     迭代分析
                 </button>
-                <button class="nav-item" data-page="milestones" onclick="switchPage('milestones')">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    里程碑
-                </button>
-                <button class="nav-item" data-page="team" onclick="switchPage('team')">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    团队架构
-                </button>
                 <button class="nav-item" data-page="charters" onclick="switchPage('charters')">
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     知识库
@@ -205,59 +197,65 @@
 
         <div class="content">
             <div id="page-overview" class="page active fade-in">
-                <!-- 项目用户群 -->
-                <div class="card" style="padding: 20px 24px; margin-bottom: 16px;">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; border-radius: 6px; font-size: 13px; font-weight: 600;">第一批</span>
-                        <span style="font-size: 15px; font-weight: 600; color: #111827;">项目用户群</span>
+                <div class="card" style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;border:none;margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                        <div style="display:flex;align-items:center;gap:16px;">
+                            <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;">🎮</div>
+                            <div>
+                                <div style="font-size:12px;opacity:0.8;margin-bottom:2px;">项目</div>
+                                <div style="font-size:20px;font-weight:700;">S6 & S6G</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:28px;font-weight:700;">6年</div>
+                            <div style="font-size:12px;opacity:0.8;">项目运行时长</div>
+                        </div>
+                    </div>
+                    <div style="border-top:1px solid rgba(255,255,255,0.2);padding-top:12px;">
+                        <div style="font-size:13px;line-height:1.6;">
+                            <div><strong>游戏类型：</strong>一款具备三国志正版授权IP的SLG策略手游</div>
+                            <div style="margin-top:4px;"><strong>玩法特色：</strong>大世界探索、战棋战斗、大型GVG国战玩法等</div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- 主信息卡片 -->
-                <div class="card" style="padding: 40px 32px; text-align: center; margin-bottom: 16px;">
-                    <div style="width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, #7c3aed, #a855f7); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 28px; font-weight: 700;">档</div>
-                    <h1 style="font-size: 26px; font-weight: 700; margin-bottom: 16px;">项目全生命周期档案平台</h1>
-                    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;">
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">SLG/策略</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">大三国IP</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">公测中的三国策略手游</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">三国沙盘策略</span>
-                        <span style="display: inline-block; padding: 4px 10px; background: #fee2e2; color: #dc2626; border-radius: 4px; font-size: 12px; font-weight: 500;">大型多人在线SLG</span>
+                <div class="card" style="margin-bottom:16px;">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        常驻团队
+                    </h3>
+                    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;">👥</div>
+                        <div>
+                            <div style="font-size:28px;font-weight:700;">76<span style="font-size:14px;color:#6b7280;font-weight:400;">人</span></div>
+                            <div style="font-size:13px;color:#6b7280;">12个职能组</div>
+                        </div>
                     </div>
-                    <p style="font-size: 14px; color: #6b7280; max-width: 520px; margin: 0 auto 20px; line-height: 1.6;">S6&S6G游戏项目的历史档案与可视化平台，涵盖项目概览、迭代分析、里程碑、团队架构与知识库。实时追踪项目进展与团队状态。</p>
-                    <a href="#" onclick="switchPage('iteration');return false;" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: #2563eb; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500;">
-                        查看详情
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </a>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <span class="badge badge-red">制作人 1</span>
+                        <span class="badge badge-blue">策划 17</span>
+                        <span class="badge badge-green">客户端 13</span>
+                        <span class="badge badge-cyan">服务器 9</span>
+                        <span class="badge badge-purple">QA 15</span>
+                        <span class="badge badge-pink">美术 3</span>
+                        <span class="badge badge-orange">UE 3</span>
+                        <span class="badge badge-indigo">GUI 4</span>
+                        <span class="badge badge-teal">动效 2</span>
+                        <span class="badge badge-amber">输出 3</span>
+                        <span class="badge badge-violet">PM 3</span>
+                        <span class="badge badge-lime">本地化 3</span>
+                    </div>
                 </div>
-
-                <!-- 里程碑 -->
-                <div class="card" style="padding: 24px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                <div class="card" style="margin-bottom:16px;">
+                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        <h2 style="font-size: 16px; font-weight: 600;">里程碑</h2>
+                        里程碑
+                    </h3>
+                    <div class="card" style="margin-bottom:16px;">
+                        <div id="overview-milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
                     </div>
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="overview-milestones">
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">Demo期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2019-11 ~ 2020-02</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
-                        </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">α期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2020-03 ~ 2021-09</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
-                        </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #16a34a;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">β期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2021-10 ~ 2023-01</div>
-                            <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">已完成</div>
-                        </div>
-                        <div style="flex: 1; min-width: 200px; padding: 16px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #2563eb;">
-                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 4px;">运营期</div>
-                            <div style="font-size: 14px; font-weight: 600;">2023-03 ~ 至今</div>
-                            <div style="font-size: 12px; color: #2563eb; margin-top: 4px;">进行中</div>
-                        </div>
+                    <div class="grid-4" style="margin-bottom:16px;" id="overview-sprint-stats"></div>
+                    <div style="max-height:600px;overflow-y:auto;">
+                        <div class="timeline" id="overview-sprint-timeline"></div>
                     </div>
                 </div>
             </div>
@@ -271,33 +269,12 @@
                 </div>
                 <div class="stat-grid" id="stat-cards"></div>
                 <div class="card" id="project-info-card"></div>
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                近期任务
-                            </div>
-                        </div>
-                        <div id="overview-tasks"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                迭代趋势
-                            </div>
-                        </div>
-                        <div id="overview-chart" class="chart-container"></div>
-                    </div>
-                </div>
-
                 <!-- 程序员工作饱和度统计 -->
                 <div class="card" style="margin-top: 24px;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
                         <div>
                             <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">程序员工作饱和度</h2>
-                            <p style="font-size: 13px; color: #6b7280;">S6G-26年【6.4-6.17】迭代 功能开发人天统计（开发需求 + 技术需求）</p>
+                            <p style="font-size: 13px; color: #6b7280;">当前迭代功能开发人天统计（开发需求 + 技术需求）</p>
                         </div>
                         <span class="badge badge-green">数据来源: Teambition API</span>
                     </div>
@@ -323,122 +300,57 @@
                         </div>
                     </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #1d4ed8; display: inline-block;">总估时</h3>
-                        <div class="grid-2">
-                            <div>
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6;"></span>
-                                    <h3 style="font-size: 16px; font-weight: 600;">客户端</h3>
-                                    <span style="font-size: 13px; color: #6b7280; margin-left: auto;">合计 115.85 d</span>
-                                </div>
-                                <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
-                                    <table>
-                                        <thead>
-                                            <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">总估时</th><th style="padding: 8px; text-align: right;">开发</th><th style="padding: 8px; text-align: right;">技术</th><th style="padding: 8px; text-align: right;">饱和度</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td style="padding: 8px;"><strong>韦蒙</strong></td><td style="padding: 8px; text-align: right;">22.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">19.7</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>陶泽綦</strong></td><td style="padding: 8px; text-align: right;">23.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.7</td><td style="padding: 8px; text-align: right; color: #6b7280;">13.7</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>刘喜行</strong></td><td style="padding: 8px; text-align: right;">10.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>陈仲法</strong></td><td style="padding: 8px; text-align: right;">13.85 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">13.85</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>刘翔</strong></td><td style="padding: 8px; text-align: right;">9.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">8.7</td><td style="padding: 8px; text-align: right; color: #6b7280;">0.7</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>李思延</strong></td><td style="padding: 8px; text-align: right;">18.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.6</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>林政国</strong></td><td style="padding: 8px; text-align: right;">4.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>侯伟韬</strong></td><td style="padding: 8px; text-align: right;">14.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.7</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">115.85 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">69.55</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">46.3</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #6b7280;">-</td></tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                    <div class="grid-2">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6;"></span>
+                                <h3 style="font-size: 16px; font-weight: 600;">客户端</h3>
                             </div>
-                            <div>
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
-                                    <h3 style="font-size: 16px; font-weight: 600;">服务器</h3>
-                                    <span style="font-size: 13px; color: #6b7280; margin-left: auto;">合计 49.5 d</span>
-                                </div>
-                                <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
-                                    <table>
-                                        <thead>
-                                            <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">总估时</th><th style="padding: 8px; text-align: right;">开发</th><th style="padding: 8px; text-align: right;">技术</th><th style="padding: 8px; text-align: right;">饱和度</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td style="padding: 8px;"><strong>莫镓闻</strong></td><td style="padding: 8px; text-align: right;">7.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>蔡润青</strong></td><td style="padding: 8px; text-align: right;">7.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">5.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>王佳丽</strong></td><td style="padding: 8px; text-align: right;">8.0 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.5</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>黄炎财</strong></td><td style="padding: 8px; text-align: right;">6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right; color: #f59e0b; font-weight: 600;">饱和</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>翁凤文</strong></td><td style="padding: 8px; text-align: right;">4.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.9</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>王新华</strong></td><td style="padding: 8px; text-align: right;">6.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.1</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #f59e0b; font-weight: 600;">饱和</td></tr>
-                                            <tr><td style="padding: 8px; color: #9ca3af;"><strong>欧贵安</strong></td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>杨祖义</strong></td><td style="padding: 8px; text-align: right;">9.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">49.5 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">37.5</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">12</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #6b7280;">-</td></tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                            <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
+                                <table>
+                                    <thead>
+                                        <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">总估时</th><th style="padding: 8px; text-align: right;">开发需求</th><th style="padding: 8px; text-align: right;">技术需求</th><th style="padding: 8px; text-align: right;">剩余人天</th><th style="padding: 8px; text-align: right;">剩余开发</th><th style="padding: 8px; text-align: right;">剩余技术</th><th style="padding: 8px; text-align: right;">饱和度</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td style="padding: 8px;"><strong>韦蒙</strong></td><td style="padding: 8px; text-align: right;">22.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">19.7</td><td style="padding: 8px; text-align: right;">15.3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">12.8</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>陶泽綦</strong></td><td style="padding: 8px; text-align: right;">23.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.7</td><td style="padding: 8px; text-align: right; color: #6b7280;">13.7</td><td style="padding: 8px; text-align: right;">10.5 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>刘喜行</strong></td><td style="padding: 8px; text-align: right;">10.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">3.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">3.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>陈仲法</strong></td><td style="padding: 8px; text-align: right;">13.85 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">13.85</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">10.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>刘翔</strong></td><td style="padding: 8px; text-align: right;">9.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">8.7</td><td style="padding: 8px; text-align: right; color: #6b7280;">0.7</td><td style="padding: 8px; text-align: right;">6.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>李思延</strong></td><td style="padding: 8px; text-align: right;">18.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.6</td><td style="padding: 8px; text-align: right;">8.7 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.1</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>林政国</strong></td><td style="padding: 8px; text-align: right;">4.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">1.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>侯伟韬</strong></td><td style="padding: 8px; text-align: right;">14.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.7</td><td style="padding: 8px; text-align: right;">13.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.7</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">115.85 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">69.55</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">46.3</td><td style="padding: 8px; text-align: right; font-weight: 600;">70.6 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">48.6</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">22</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #6b7280;">-</td></tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
-                    </div>
-
-                    <div style="margin-bottom: 24px;">
-                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; display: inline-block;">剩余人天</h3>
-                        <div class="grid-2">
-                            <div>
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6;"></span>
-                                    <h3 style="font-size: 16px; font-weight: 600;">客户端</h3>
-                                    <span style="font-size: 13px; color: #6b7280; margin-left: auto;">合计 70.6 d</span>
-                                </div>
-                                <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
-                                    <table>
-                                        <thead>
-                                            <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">剩余人天</th><th style="padding: 8px; text-align: right;">开发</th><th style="padding: 8px; text-align: right;">技术</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td style="padding: 8px;"><strong>韦蒙</strong></td><td style="padding: 8px; text-align: right;">15.3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">12.8</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>陶泽綦</strong></td><td style="padding: 8px; text-align: right;">10.5 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>刘喜行</strong></td><td style="padding: 8px; text-align: right;">3.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">3.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>陈仲法</strong></td><td style="padding: 8px; text-align: right;">10.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">10.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>刘翔</strong></td><td style="padding: 8px; text-align: right;">6.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>李思延</strong></td><td style="padding: 8px; text-align: right;">8.7 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.1</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>林政国</strong></td><td style="padding: 8px; text-align: right;">1.6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.6</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>侯伟韬</strong></td><td style="padding: 8px; text-align: right;">13.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.7</td></tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">70.6 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">48.6</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">22</td></tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+                                <h3 style="font-size: 16px; font-weight: 600;">服务器</h3>
                             </div>
-                            <div>
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
-                                    <h3 style="font-size: 16px; font-weight: 600;">服务器</h3>
-                                    <span style="font-size: 13px; color: #6b7280; margin-left: auto;">合计 24.8 d</span>
-                                </div>
-                                <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
-                                    <table>
-                                        <thead>
-                                            <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">剩余人天</th><th style="padding: 8px; text-align: right;">开发</th><th style="padding: 8px; text-align: right;">技术</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td style="padding: 8px;"><strong>莫镓闻</strong></td><td style="padding: 8px; text-align: right;">1.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.9</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>蔡润青</strong></td><td style="padding: 8px; text-align: right;">1.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.9</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>王佳丽</strong></td><td style="padding: 8px; text-align: right;">4.5 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1</td><td style="padding: 8px; text-align: right; color: #6b7280;">3.5</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>黄炎财</strong></td><td style="padding: 8px; text-align: right;">3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td></tr>
-                                            <tr><td style="padding: 8px; color: #9ca3af;"><strong>翁凤文</strong></td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>王新华</strong></td><td style="padding: 8px; text-align: right;">4.3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.3</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                            <tr><td style="padding: 8px; color: #9ca3af;"><strong>欧贵安</strong></td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td></tr>
-                                            <tr><td style="padding: 8px;"><strong>杨祖义</strong></td><td style="padding: 8px; text-align: right;">9.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td></tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">24.8 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">18.3</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">6.5</td></tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                            <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
+                                <table>
+                                    <thead>
+                                        <tr><th style="padding: 8px;">姓名</th><th style="padding: 8px; text-align: right;">总估时</th><th style="padding: 8px; text-align: right;">开发需求</th><th style="padding: 8px; text-align: right;">技术需求</th><th style="padding: 8px; text-align: right;">剩余人天</th><th style="padding: 8px; text-align: right;">剩余开发</th><th style="padding: 8px; text-align: right;">剩余技术</th><th style="padding: 8px; text-align: right;">饱和度</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td style="padding: 8px;"><strong>莫镓闻</strong></td><td style="padding: 8px; text-align: right;">7.4 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">7.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">1.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.9</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>蔡润青</strong></td><td style="padding: 8px; text-align: right;">7.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">5.4</td><td style="padding: 8px; text-align: right; color: #6b7280;">2.5</td><td style="padding: 8px; text-align: right;">1.9 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.9</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>王佳丽</strong></td><td style="padding: 8px; text-align: right;">8.0 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1.5</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.5</td><td style="padding: 8px; text-align: right;">4.5 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">1</td><td style="padding: 8px; text-align: right; color: #6b7280;">3.5</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>黄炎财</strong></td><td style="padding: 8px; text-align: right;">6 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right;">3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #6b7280;">3</td><td style="padding: 8px; text-align: right; color: #f59e0b; font-weight: 600;">饱和</td></tr>
+                                        <tr><td style="padding: 8px; color: #9ca3af;"><strong>翁凤文</strong></td><td style="padding: 8px; text-align: right; color: #9ca3af;">4.9 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">4.9</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>王新华</strong></td><td style="padding: 8px; text-align: right;">6.1 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">6.1</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">4.3 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">4.3</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #f59e0b; font-weight: 600;">饱和</td></tr>
+                                        <tr><td style="padding: 8px; color: #9ca3af;"><strong>欧贵安</strong></td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0 d</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #9ca3af;">0</td><td style="padding: 8px; text-align: right; color: #16a34a; font-weight: 600;">空闲</td></tr>
+                                        <tr><td style="padding: 8px;"><strong>杨祖义</strong></td><td style="padding: 8px; text-align: right;">9.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right;">9.2 d</td><td style="padding: 8px; text-align: right; color: #6b7280;">9.2</td><td style="padding: 8px; text-align: right; color: #6b7280;">0</td><td style="padding: 8px; text-align: right; color: #dc2626; font-weight: 600;">过载</td></tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="border-top: 2px solid #e5e7eb;"><td style="padding: 8px; font-weight: 600;">小计</td><td style="padding: 8px; text-align: right; font-weight: 600;">49.5 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">37.5</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">12</td><td style="padding: 8px; text-align: right; font-weight: 600;">24.8 d</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">18.3</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #1d4ed8;">6.5</td><td style="padding: 8px; text-align: right; font-weight: 600; color: #6b7280;">-</td></tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -467,40 +379,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="page-milestones" class="page fade-in">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-                    <h2 class="section-title" style="margin-bottom:0;">项目里程碑时间轴</h2>
-                </div>
-                <div class="card" style="margin-bottom:24px;">
-                    <div id="milestone-timeline-visual" style="overflow-x:auto;padding:20px 0;"></div>
-                </div>
-                <div class="grid-4" style="margin-bottom:24px;" id="sprint-stats"></div>
-                <div class="card">
-                    <div style="max-height:600px;overflow-y:auto;">
-                        <div class="timeline" id="sprint-timeline"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="page-team" class="page fade-in">
-                <h2 class="section-title">团队规模与架构</h2>
-                <div style="margin-bottom:24px;max-width:320px;" id="team-stats"></div>
-                <div class="grid-2" style="margin-bottom:24px;">
-                    <div class="card" style="grid-column:1/-1;">
-                        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">角色分布（职能组）</h3>
-                        <div id="team-pie-chart" style="display:flex;align-items:center;justify-content:center;height:280px;"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">项目成员列表</h3>
-                    <div style="overflow-x:auto;">
-                        <table>
-                            <tbody id="members-table"></tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -748,24 +626,26 @@
         ],
         milestones: [
             {phase:'运营期',startDate:'2023-03',endDate:'至今',status:'active',description:'正式运营阶段',subMilestones:[
-                {name:'1周年',startDate:'2023-03',endDate:'2024-03',status:'completed'},
-                {name:'2周年',startDate:'2024-04',endDate:'2025-03',status:'completed'},
-                {name:'3周年',startDate:'2025-04',endDate:'2026-03',status:'completed'},
-                {name:'4周年',startDate:'2026-04',endDate:'2027-03',status:'active'},
+                {name:'月版本包',startDate:'2023-03',endDate:'2023-12',status:'completed'},
+                {name:'封版节点',startDate:'2024-01',endDate:'2024-12',status:'completed'},
+                {name:'回归测试',startDate:'2025-01',endDate:'至今',status:'active'},
             ]},
-            {phase:'β期',startDate:'2021-10',endDate:'2023-01',status:'completed',description:'Beta阶段，多轮公开测试',subMilestones:[
-                {name:'PBT1',startDate:'2021-09',endDate:'2021-09',status:'completed'},
-                {name:'PBT2',startDate:'2022-01',endDate:'2022-03',status:'completed'},
-                {name:'PBT3',startDate:'2022-08',endDate:'2022-11',status:'completed'},
-                {name:'CBT',startDate:'2023-01',endDate:'2023-01',status:'completed'},
+            {phase:'β期',startDate:'2021-10',endDate:'2023-01',status:'completed',description:'面向部分公开测试',subMilestones:[
+                {name:'内测2',startDate:'2021-10',endDate:'2021-12',status:'completed'},
+                {name:'内测1',startDate:'2022-01',endDate:'2022-06',status:'completed'},
+                {name:'CBT2',startDate:'2022-07',endDate:'2022-09',status:'completed'},
+                {name:'CBT1',startDate:'2022-10',endDate:'2023-01',status:'completed'},
             ]},
-            {phase:'α期',startDate:'2020-03',endDate:'2021-09',status:'completed',description:'Alpha阶段，包含多轮内部测试',subMilestones:[
-                {name:'Alpha1',startDate:'2020-03',endDate:'2020-06',status:'completed'},
-                {name:'Alpha2',startDate:'2020-07',endDate:'2020-10',status:'completed'},
-                {name:'Alpha3',startDate:'2020-11',endDate:'2021-09',status:'completed'},
-                {name:'公司内测',startDate:'2021-07',endDate:'2021-07',status:'completed'},
+            {phase:'α期',startDate:'2020-03',endDate:'2021-09',status:'completed',description:'Alpha测试及内部调优阶段',subMilestones:[
+                {name:'Alpha测试',startDate:'2020-03',endDate:'2020-09',status:'completed'},
+                {name:'功能开发',startDate:'2020-10',endDate:'2021-03',status:'completed'},
+                {name:'压力测试',startDate:'2021-04',endDate:'2021-06',status:'completed'},
+                {name:'灰度测试',startDate:'2021-07',endDate:'2021-09',status:'completed'},
             ]},
-            {phase:'Demo期',startDate:'2019-11',endDate:'2020-02',status:'completed',description:'项目Demo阶段'},
+            {phase:'Demo期',startDate:'2019-11',endDate:'2020-02',status:'completed',description:'原型验证及核心玩法搭建',subMilestones:[
+                {name:'原型验证',startDate:'2019-11',endDate:'2019-12',status:'completed'},
+                {name:'核心玩法',startDate:'2020-01',endDate:'2020-02',status:'completed'},
+            ]},
         ],
         workflows: [
             {name:'缺陷默认工作流'},
@@ -859,11 +739,12 @@
     }
 
     function renderOverviewTasks(){
-        document.getElementById('overview-tasks').innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
+        const el=document.getElementById('overview-tasks');if(el)el.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无近期任务数据</p>';
     }
 
     function renderAreaChart(){
-        const c=document.getElementById('overview-chart'),md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
+        const c=document.getElementById('overview-chart');if(!c)return;
+        const md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
         const ms=Object.keys(md).sort();if(!ms.length){c.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px;">暂无数据</p>';return;}
         const vs=ms.map(m=>md[m]),mx=Math.max(...vs),W=c.offsetWidth||500,H=200,P=40;
         let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+(H+30)+'">';
@@ -874,11 +755,25 @@
         svg+='</svg>';c.innerHTML=svg;
     }
 
+    function renderOverviewMiniChart(){
+        const c=document.getElementById('overview-mini-chart');if(!c)return;
+        const md={};tbData.sprints.filter(s=>s.status==='complete'&&s.accomplished).forEach(s=>{const m=s.accomplished.substring(0,7);md[m]=(md[m]||0)+1;});
+        const ms=Object.keys(md).sort();if(!ms.length){c.innerHTML='<p style="color:#9ca3af;text-align:center;padding:40px 0;font-size:12px;">暂无数据</p>';return;}
+        const vs=ms.map(m=>md[m]),mx=Math.max(...vs),W=c.offsetWidth||300,H=140,P=30;
+        let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+        const pts=vs.map((v,i)=>({x:P+(W-P-10)*(i/(vs.length-1||1)),y:H-20-(H-40)*(v/(mx||1))}));
+        if(pts.length>1){svg+='<path d="M'+pts[0].x+','+(H-20)+' L'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+' L'+pts[pts.length-1].x+','+(H-20)+' Z" fill="#3b82f6" fill-opacity="0.1"/>';svg+='<path d="M'+pts.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' L')+'" fill="none" stroke="#3b82f6" stroke-width="2"/>';}
+        pts.forEach((p,i)=>{svg+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="3" fill="#3b82f6"/>';if(i%Math.ceil(ms.length/6)===0||i===ms.length-1)svg+='<text x="'+p.x.toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" font-size="9" fill="#6b7280">'+ms[i].substring(2)+'</text>';});
+        svg+='</svg>';c.innerHTML=svg;
+    }
+
     function renderSprintTimeline(){
         const milestones = tbData.milestones;
-        document.getElementById('sprint-stats').innerHTML = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
-        const c=document.getElementById('sprint-timeline');
-        c.innerHTML=milestones.map(phase=>{
+        const statsHtml = '<div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">项目阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#2563eb;">'+milestones.reduce((s,m)=>s+(m.subMilestones?m.subMilestones.length:1),0)+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">里程碑节点</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#16a34a;">'+milestones.filter(m=>m.status==='completed').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">已完成阶段</div></div><div class="team-stat-card" style="text-align:center;"><div style="font-size:24px;font-weight:700;color:#f59e0b;">'+milestones.filter(m=>m.status==='active').length+'</div><div style="font-size:13px;color:#6b7280;margin-top:4px;">进行中阶段</div></div>';
+        document.getElementById('sprint-stats').innerHTML = statsHtml;
+        const oStats = document.getElementById('overview-sprint-stats');
+        if(oStats) oStats.innerHTML = statsHtml;
+        const timelineHtml = milestones.map(phase=>{
             const icon = phase.status==='completed'?'✓':phase.status==='active'?'◉':'◷';
             const dotClass = phase.status==='completed'?'completed':phase.status==='active'?'planned':'planned';
             const badge = phase.status==='completed'?'<span class="badge badge-green">已完成</span>':phase.status==='active'?'<span class="badge badge-blue">运营中</span>':'<span class="badge badge-yellow">规划中</span>';
@@ -895,6 +790,9 @@
             html += '</div></div>';
             return html;
         }).join('');
+        document.getElementById('sprint-timeline').innerHTML = timelineHtml;
+        const oTimeline = document.getElementById('overview-sprint-timeline');
+        if(oTimeline) oTimeline.innerHTML = timelineHtml;
     }
 
     function renderTeamStats(){
@@ -959,7 +857,6 @@
 
     function renderMilestoneTimeline(){
         const milestones = tbData.milestones;
-        const c = document.getElementById('milestone-timeline-visual');
         let html = '<div style="min-width:800px;padding:20px 40px;position:relative;">';
         html += '<div style="position:relative;height:120px;margin-bottom:40px;">';
         html += '<div style="position:absolute;top:50px;left:0;right:0;height:3px;background:#e5e7eb;border-radius:2px;"></div>';
@@ -1003,7 +900,10 @@
             html += '</div>';
         });
         html += '</div>';
-        c.innerHTML = html;
+        const c1 = document.getElementById('milestone-timeline-visual');
+        if(c1) c1.innerHTML = html;
+        const c2 = document.getElementById('overview-milestone-timeline-visual');
+        if(c2) c2.innerHTML = html;
     }
 
     const quickLinksData = [
