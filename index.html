@@ -297,7 +297,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
                         <div>
                             <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">程序员工作饱和度</h2>
-                            <p style="font-size: 13px; color: #6b7280;">当前迭代功能开发人天统计（开发需求 + 技术需求）</p>
+                            <p style="font-size: 13px; color: #6b7280;">S6G-26年【6.4-6.17】迭代 功能开发人天统计（开发需求 + 技术需求）</p>
                         </div>
                         <span class="badge badge-green">数据来源: Teambition API</span>
                     </div>
@@ -323,12 +323,8 @@
                         </div>
                     </div>
 
-                    <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 1px;">
-                        <button class="sat-tab" onclick="switchSatTab('total')" id="sat-tab-total" style="padding: 10px 20px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 500; color: #1d4ed8; border-bottom: 2px solid #1d4ed8; margin-bottom: -1px;">总估时</button>
-                        <button class="sat-tab" onclick="switchSatTab('remain')" id="sat-tab-remain" style="padding: 10px 20px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 500; color: #6b7280; border-bottom: 2px solid transparent; margin-bottom: -1px;">剩余人天</button>
-                    </div>
-
-                    <div id="sat-panel-total">
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #1d4ed8; display: inline-block;">总估时</h3>
                         <div class="grid-2">
                             <div>
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -387,7 +383,8 @@
                         </div>
                     </div>
 
-                    <div id="sat-panel-remain" style="display: none;">
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; display: inline-block;">剩余人天</h3>
                         <div class="grid-2">
                             <div>
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -1045,15 +1042,6 @@
             html += '</a>';
         });
         c.innerHTML = html;
-    }
-
-    function switchSatTab(mode) {
-        document.getElementById('sat-panel-total').style.display = mode === 'total' ? 'block' : 'none';
-        document.getElementById('sat-panel-remain').style.display = mode === 'remain' ? 'block' : 'none';
-        document.getElementById('sat-tab-total').style.color = mode === 'total' ? '#1d4ed8' : '#6b7280';
-        document.getElementById('sat-tab-total').style.borderBottomColor = mode === 'total' ? '#1d4ed8' : 'transparent';
-        document.getElementById('sat-tab-remain').style.color = mode === 'remain' ? '#1d4ed8' : '#6b7280';
-        document.getElementById('sat-tab-remain').style.borderBottomColor = mode === 'remain' ? '#1d4ed8' : 'transparent';
     }
 
     document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();});
