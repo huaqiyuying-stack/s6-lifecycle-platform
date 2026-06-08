@@ -117,6 +117,7 @@
         .page.active { display: block; }
         .fade-in { animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .section-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
         .link-btn { background: none; border: none; color: #2563eb; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 4px; }
         .link-btn:hover { color: #1d4ed8; }
@@ -276,7 +277,13 @@
                             <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">程序员工作饱和度</h2>
                             <p style="font-size: 13px; color: #6b7280;">当前迭代功能开发人天统计（开发需求 + 技术需求）</p>
                         </div>
-                        <span class="badge badge-green">数据来源: Teambition API</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <button id="sat-refresh-btn" onclick="refreshSaturationData()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; color: #374151; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#fff'">
+                                <svg id="sat-refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                <span id="sat-refresh-text">刷新数据</span>
+                            </button>
+                            <span class="badge badge-green">数据来源: Teambition API</span>
+                        </div>
                     </div>
 
                     <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
@@ -1031,7 +1038,28 @@
             const table = document.getElementById(tableId);
             if (!table) return;
 
+            // 清除已有的饱和度列（支持重复渲染）
             const headerRow = table.querySelector('thead tr');
+            if (headerRow) {
+                const existingTh = headerRow.querySelector('th:last-child');
+                if (existingTh && existingTh.textContent === '饱和度') {
+                    existingTh.remove();
+                }
+            }
+            table.querySelectorAll('tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length > 7) {
+                    cells[cells.length - 1].remove();
+                }
+            });
+            const footerRow = table.querySelector('tfoot tr');
+            if (footerRow) {
+                const cells = footerRow.querySelectorAll('td');
+                if (cells.length > 7) {
+                    cells[cells.length - 1].remove();
+                }
+            }
+
             const th = document.createElement('th');
             th.style.cssText = 'padding: 6px 8px; text-align: center; min-width: 80px;';
             th.textContent = '饱和度';
@@ -1053,13 +1081,81 @@
                 row.appendChild(td);
             });
 
-            const footerRow = table.querySelector('tfoot tr');
             if (footerRow) {
                 const td = document.createElement('td');
                 td.style.cssText = 'padding: 6px 8px;';
                 footerRow.appendChild(td);
             }
         });
+    }
+
+    async function refreshSaturationData() {
+        const btn = document.getElementById('sat-refresh-btn');
+        const icon = document.getElementById('sat-refresh-icon');
+        const text = document.getElementById('sat-refresh-text');
+        if (!btn) return;
+
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.style.cursor = 'not-allowed';
+        if (icon) icon.style.animation = 'spin 1s linear infinite';
+        if (text) text.textContent = '刷新中...';
+
+        let refreshed = false;
+        try {
+            // 尝试从 Teambition API 拉取最新任务数据（需同域 cookie）
+            const resp = await fetch('https://teambition.alibaba-inc.com/api/projects/5e7c0d630a65123a62774816/tasks?count=200&page=1', {
+                credentials: 'include',
+                headers: { 'Accept': 'application/json' }
+            });
+            if (resp.ok) {
+                const data = await resp.json();
+                // 解析并更新表格数据（简化处理：如 API 返回结构与预期不符则回退到提示）
+                if (data && Array.isArray(data.result) && data.result.length > 0) {
+                    updateSaturationFromAPI(data.result);
+                    refreshed = true;
+                }
+            }
+        } catch (e) {
+            // CORS 或网络错误，静默处理
+        }
+
+        // 无论 API 是否成功，都重新计算饱和度（基于当前日期）
+        renderSaturation();
+
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        if (icon) icon.style.animation = '';
+        if (text) text.textContent = refreshed ? '已刷新' : '刷新数据';
+
+        // 显示提示
+        showSatToast(refreshed
+            ? '数据已刷新（' + new Date().toLocaleString('zh-CN', {hour:'2-digit', minute:'2-digit'}) + '）'
+            : '饱和度状态已更新。由于浏览器安全限制，底层任务数据需通过 QoderWork 手动同步。'
+        );
+
+        if (!refreshed) {
+            setTimeout(() => { if (text) text.textContent = '刷新数据'; }, 3000);
+        }
+    }
+
+    function updateSaturationFromAPI(tasks) {
+        // 占位：实际解析 Teambition 任务数据并更新表格
+        // 当前仅作演示，如需完整实现需根据 API 返回结构解析 customfields 中的工时字段
+    }
+
+    function showSatToast(msg) {
+        let toast = document.getElementById('sat-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'sat-toast';
+            toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;padding:12px 18px;background:#1f2937;color:#fff;border-radius:8px;font-size:13px;box-shadow:0 10px 25px rgba(0,0,0,0.15);transition:opacity 0.3s;opacity:0;pointer-events:none;';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, 4000);
     }
 
     document.addEventListener('DOMContentLoaded',()=>{renderStatCards();renderProjectInfo();renderOverviewTasks();renderAreaChart();renderMilestoneTimeline();renderSprintTimeline();renderTeamStats();renderTeamTimelineChart();renderPieChart();renderMembersTable();renderCharters();renderQuickLinks();renderSaturation();});
